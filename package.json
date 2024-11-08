@@ -1,0 +1,20 @@
+{
+    "name": "RogueLike",
+    "version": "1.0.0",
+    "description": "textgame",
+    "main": "app.js",
+    "repository": "https://github.com/bbie-6772/RogueLike",
+    "author": "bbie",
+    "license": "MIT",
+    "scripts": {
+        "format": "prettier --write *.js **/*.js"
+    },
+    "dependencies": {
+        "chalk": "^5.3.0",
+        "figlet": "^1.8.0",
+        "readline-sync": "^1.4.10"
+    },
+    "devDependencies": {
+        "prettier": "^3.3.3"
+    }
+}
