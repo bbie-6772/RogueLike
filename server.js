@@ -1,5 +1,8 @@
+// 단순 그림 그리는 용도
 import chalk from 'chalk';
+// 문자를 그려주는 용도 
 import figlet from 'figlet';
+// 동기식 콘솔 사용
 import readlineSync from 'readline-sync';
 import { startGame } from "./game.js";
 
@@ -10,7 +13,7 @@ function displayLobby() {
     // 타이틀 텍스트
     console.log(
         chalk.cyan(
-            figlet.textSync('RL- Javascript', {
+            figlet.textSync('Play Student', {
                 font: 'Standard',
                 horizontalLayout: 'default',
                 verticalLayout: 'default'
@@ -23,10 +26,10 @@ function displayLobby() {
     console.log(line);
 
     // 게임 이름
-    console.log(chalk.yellowBright.bold('CLI 게임에 오신것을 환영합니다!'));
+    console.log(chalk.yellowBright.bold('학생이 되자! 게임에 오신것을 환영합니다!'));
 
     // 설명 텍스트
-    console.log(chalk.green('옵션을 선택해주세요.'));
+    console.log(chalk.green('메뉴를 선택해주세요.'));
     console.log();
 
     // 옵션들
@@ -44,7 +47,7 @@ function displayLobby() {
 
 // 유저 입력을 받아 처리하는 함수
 function handleUserInput() {
-    const choice = readlineSync.question('입력: ');
+    const choice = readlineSync.question('INPUT: ');
 
     switch (choice) {
         case '1':
