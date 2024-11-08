@@ -2,10 +2,11 @@
     "name": "RogueLike",
     "version": "1.0.0",
     "description": "textgame",
-    "main": "app.js",
+    "main": "server.js",
     "repository": "https://github.com/bbie-6772/RogueLike",
     "author": "bbie",
     "license": "MIT",
+    "type": "module",
     "scripts": {
         "format": "prettier --write *.js **/*.js"
     },
