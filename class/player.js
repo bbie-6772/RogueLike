@@ -7,7 +7,6 @@ class Player {
         this.maxHp = 100;
         this.hp = this.maxHp;
         // 무기
-        this.weaponNum = 0;
         this.weapon = Weapons[0];
         // 몰입도
         this.minDmg = 20 + this.weapon.damage;
@@ -44,7 +43,6 @@ class Player {
                 ),
             );
         }
-
         // 제출기한 업데이트
         monster.Day(logs);
     }
@@ -137,7 +135,6 @@ class Player {
         this.maxHeal += aftHeal;
 
         this.weapon = weapon;
-        this.weaponNum = weapon.number;
     }
 }
 

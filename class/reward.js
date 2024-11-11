@@ -111,7 +111,7 @@ class Rewards {
 
         console.log(
             chalk.green(
-                figlet.textSync('Rest', {
+                figlet.textSync('Upgrade', {
                     font: 'Standard',
                     horizontalLayout: 'default',
                     verticalLayout: 'default',
