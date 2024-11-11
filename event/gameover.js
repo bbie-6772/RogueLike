@@ -1,9 +1,8 @@
 import chalk from 'chalk';
 import readlineSync from 'readline-sync';
-import { startGame } from "../game.js";
+import { startGame } from '../game.js';
 
 const endgame = async (stage, player) => {
-
     let logs = [];
     let exit = true;
 
@@ -20,16 +19,12 @@ const endgame = async (stage, player) => {
         logs.push(chalk.magentaBright(`=============`));
 
         for await (const log of logs) {
-            console.log(log)
+            console.log(log);
             // 애니메이션 효과 딜레이
-            await new Promise(resolve => setTimeout(resolve, 300));
+            await new Promise((resolve) => setTimeout(resolve, 300));
         }
 
-        console.log(
-            chalk.green(
-                `\n1. 새로운 인생 2. 현타와서 종료`,
-            ),
-        );
+        console.log(chalk.green(`\n1. 새로운 인생 2. 현타와서 종료`));
         const choice = readlineSync.question('Choice? ');
 
         switch (choice) {
@@ -43,7 +38,7 @@ const endgame = async (stage, player) => {
                 console.log(chalk.red('올바르지 않은 접근입니다.'));
                 handleUserInput(); // 유효하지 않은 입력일 경우 다시 입력 받음
         }
-    };
-}
+    }
+};
 
 export default endgame;

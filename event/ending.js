@@ -1,10 +1,9 @@
 import chalk from 'chalk';
 import figlet from 'figlet';
 import readlineSync from 'readline-sync';
-import { startGame } from "../game.js";
+import { startGame } from '../game.js';
 
 const win = async (player) => {
-
     let logs = [];
     let exit = true;
 
@@ -16,9 +15,9 @@ const win = async (player) => {
                 figlet.textSync('Win! A++', {
                     font: 'Standard',
                     horizontalLayout: 'default',
-                    verticalLayout: 'default'
-                })
-            )
+                    verticalLayout: 'default',
+                }),
+            ),
         );
 
         logs.push(chalk.magentaBright(`==== 결과 ====`));
@@ -31,16 +30,12 @@ const win = async (player) => {
         logs.push(chalk.magentaBright(`=============`));
 
         for await (const log of logs) {
-            console.log(log)
+            console.log(log);
             // 애니메이션 효과 딜레이
-            await new Promise(resolve => setTimeout(resolve, 300));
+            await new Promise((resolve) => setTimeout(resolve, 300));
         }
 
-        console.log(
-            chalk.green(
-                `\n1. 새로운 인생 2. 현타와서 종료`,
-            ),
-        );
+        console.log(chalk.green(`\n1. 새로운 인생 2. 현타와서 종료`));
         const choice = readlineSync.question('Choice? ');
 
         switch (choice) {
@@ -54,7 +49,7 @@ const win = async (player) => {
                 console.log(chalk.red('올바르지 않은 접근입니다.'));
                 handleUserInput(); // 유효하지 않은 입력일 경우 다시 입력 받음
         }
-    };
-}
+    }
+};
 
 export default win;

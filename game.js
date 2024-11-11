@@ -6,7 +6,6 @@ import endgame from './event/gameover.js';
 import battle from './event/battle.js';
 import win from './event/ending.js';
 
-
 export async function startGame() {
     console.clear();
     const player = new Player();
@@ -16,8 +15,8 @@ export async function startGame() {
     while (stage <= 10) {
         const monster = new Monster(stage);
         status = await battle(stage, player, monster);
-        // 스테이지 클리어 시 
-        if (status === "run") {
+        // 스테이지 클리어 시
+        if (status === 'run') {
             player.hp = player.maxHp;
             continue;
         } else if (status) {
@@ -28,6 +27,5 @@ export async function startGame() {
             return await endgame(stage, player);
         }
     }
-    win(player)
-
+    win(player);
 }

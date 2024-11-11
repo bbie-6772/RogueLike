@@ -1,10 +1,10 @@
 // 단순 글자색
 import chalk from 'chalk';
-// 문자를 그려주는 용도 
+// 문자를 그려주는 용도
 import figlet from 'figlet';
 // 동기식 콘솔 사용
 import readlineSync from 'readline-sync';
-import { startGame } from "./game.js";
+import { startGame } from './game.js';
 
 // 로비 화면을 출력하는 함수
 function displayLobby() {
@@ -16,9 +16,9 @@ function displayLobby() {
             figlet.textSync('Lets Take A Test', {
                 font: 'Standard',
                 horizontalLayout: 'default',
-                verticalLayout: 'default'
-            })
-        )
+                verticalLayout: 'default',
+            }),
+        ),
     );
 
     // 상단 경계선
@@ -26,7 +26,9 @@ function displayLobby() {
     console.log(line);
 
     // 게임 이름
-    console.log(chalk.yellowBright.bold('시험을 보자! 게임에 오신것을 환영합니다!'));
+    console.log(
+        chalk.yellowBright.bold('시험을 보자! 게임에 오신것을 환영합니다!'),
+    );
 
     // 설명 텍스트
     console.log(chalk.green('메뉴를 선택해주세요.'));

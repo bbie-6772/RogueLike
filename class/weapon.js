@@ -14,9 +14,21 @@ class Weapon {
 
     plusWeapon(stage) {
         if (this.plus === 0) {
-            return new Weapon(`${this.name}+${this.plus + 1}`, this.damage + (stage * 5), this.heal + (stage * 2), 1, 50)
+            return new Weapon(
+                `${this.name}+${this.plus + 1}`,
+                this.damage + stage * 5,
+                this.heal + stage * 2,
+                1,
+                50,
+            );
         } else {
-            return new Weapon(`${this.name.slice(0, -1) + (this.plus + 1)}`, this.damage + (stage * 5), this.heal + 5, this.heal + (stage * 2), this.prob - (this.plus * 5))
+            return new Weapon(
+                `${this.name.slice(0, -1) + (this.plus + 1)}`,
+                this.damage + stage * 5,
+                this.heal + 5,
+                this.heal + stage * 2,
+                this.prob - this.plus * 5,
+            );
         }
     }
 }

@@ -7,11 +7,20 @@ const rewardEvent = async (stage, player, reward) => {
     let logs = [];
     let exit = false;
 
-    logs.push(chalk.magentaBright(`============================= 보상 정보 =============================`));
-    logs.push(chalk.greenBright(`| 기본보상 | 회복 : ${reward.heal} | 이해력 증가 : ${reward.levUp} |`)); 1
+    logs.push(
+        chalk.magentaBright(
+            `============================= 보상 정보 =============================`,
+        ),
+    );
+    logs.push(
+        chalk.greenBright(
+            `| 기본보상 | 회복 : ${reward.heal} | 이해력 증가 : ${reward.levUp} |`,
+        ),
+    );
+    1;
 
     player.heal(reward.heal, logs);
-    player.levelSet(reward.levUp, logs)
+    player.levelSet(reward.levUp, logs);
 
     while (!exit) {
         console.clear();
@@ -21,15 +30,15 @@ const rewardEvent = async (stage, player, reward) => {
                 figlet.textSync('Reward Time', {
                     font: 'Standard',
                     horizontalLayout: 'default',
-                    verticalLayout: 'default'
-                })
-            )
+                    verticalLayout: 'default',
+                }),
+            ),
         );
 
         for await (const log of logs) {
-            console.log(log)
+            console.log(log);
             // 애니메이션 효과 딜레이
-            await new Promise(resolve => setTimeout(resolve, 200));
+            await new Promise((resolve) => setTimeout(resolve, 200));
         }
 
         displayReward(stage, player);
@@ -68,11 +77,19 @@ const rewardEvent = async (stage, player, reward) => {
 };
 
 function displayReward(stage, player) {
-    console.log(chalk.magentaBright(`============================= 현재 상태 =============================`));
     console.log(
-        chalk.cyanBright(`| Stage: ${stage} | 장착한 필기구 : ${player.weapon.name} |`) +
-        chalk.yellowBright(`\n|   학생   | 정신력 : ${player.hp}/${player.maxHp}  | 몰입도 : ${player.minDmg}~${player.maxDmg} Page  | 수면효과 : ${player.minHeal}~${player.maxHeal} | 이해력 : ${player.lev} | `)
-    )
+        chalk.magentaBright(
+            `============================= 현재 상태 =============================`,
+        ),
+    );
+    console.log(
+        chalk.cyanBright(
+            `| Stage: ${stage} | 장착한 필기구 : ${player.weapon.name} |`,
+        ) +
+            chalk.yellowBright(
+                `\n|   학생   | 정신력 : ${player.hp}/${player.maxHp}  | 몰입도 : ${player.minDmg}~${player.maxDmg} Page  | 수면효과 : ${player.minHeal}~${player.maxHeal} | 이해력 : ${player.lev} | `,
+            ),
+    );
     console.log(chalk.magentaBright('='.repeat(69)));
 }
 
