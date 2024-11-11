@@ -27,5 +27,5 @@ export async function startGame() {
             return await endgame(stage, player);
         }
     }
-    win(player);
+    return await win(player);
 }
