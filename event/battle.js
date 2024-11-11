@@ -1,18 +1,43 @@
+import figlet from 'figlet';
 import chalk from 'chalk';
 import readlineSync from 'readline-sync';
 
 const battle = async (stage, player, monster) => {
     let logs = [];
+    let run = false;
 
-    while (player.hp > 0 || player.lev > 0) {
+    while (player.hp > 0) {
         console.clear();
-        displayStatus(stage, player, monster);
+        console.log(
+            chalk.red(
+                figlet.textSync('Study Time', {
+                    font: 'Standard',
+                    horizontalLayout: 'default',
+                    verticalLayout: 'default'
+                })
+            )
+        );
+        console.log(chalk.magentaBright(`============================= 상호 작용 =============================`));
 
         for await (const log of logs) {
             console.log(log)
             // 애니메이션 효과 딜레이
-            await new Promise(resolve => setTimeout(resolve, 500));
+            await new Promise(resolve => setTimeout(resolve, 300));
         }
+
+        if (monster.hp <= 0) {
+            // 몬스터를 처치 시
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            player.kills += 1;
+            return true;
+        } else if (run) {
+            // 도망갈 시 
+            player.maxHp -= 10;
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            return "run";
+        }
+
+        displayStatus(stage, player, monster);
 
         logs = [];
 
@@ -30,44 +55,52 @@ const battle = async (stage, player, monster) => {
             case '1':
                 logs.push(chalk.blue('문제를 풀기시작합니다!'));
                 player.attack(monster, logs);
-                monster.attack(player, logs);
+                if (monster.hp > 0) {
+                    monster.attack(player, logs);
+                } else {
+                    logs.push(chalk.green('문제집을 전부 풀어 정신이 멀쩡합니다!'));
+                }
                 break;
             case '2':
                 logs.push(chalk.blue('잠을 청하기 시작합니다..zzZ'));
                 player.sleep(monster, logs);
                 break;
             case '3':
-                console.log(chalk.blue('구현 준비중입니다.. 게임을 시작하세요'));
-                handleUserInput();
+                logs.push(chalk.blue('문제집을 쓰레기통에 버립니다!'));
+                logs.push(chalk.red('정신력이 나약해지는 느낌이 듭니다..'));
+                logs.push(chalk.red('최대 정신력 -10 '));
+                run = true;
                 break;
             case '4':
-                console.log(chalk.blue('구현 준비중입니다.. 게임을 시작하세요'));
+                console.log(chalk.blue('구현 준비중입니다.. '));
                 handleUserInput();
                 break;
             default:
                 console.log(chalk.red('올바르지 않은 접근입니다.'));
                 handleUserInput(); // 유효하지 않은 입력일 경우 다시 입력 받음
         }
-
-        if (monster.hp < 0) {
-            // 몬스터가 죽으면 이김
-            return true;
-        }
     }
+    for await (const log of logs) {
+        console.log(log)
+        // 애니메이션 효과 딜레이
+        await new Promise(resolve => setTimeout(resolve, 300));
+    }
+
+    displayStatus(stage, player, monster);
+
+    return false;
 };
 
 function displayStatus(stage, player, monster) {
-    console.log(chalk.magentaBright(`\n============================ 학습 태도 ============================`));
+    console.log(chalk.magentaBright(`\n============================= 현재 상태 =============================`));
     console.log(
-        chalk.cyanBright(`| Stage: ${stage} | `) +
-        chalk.greenBright(`\n|  학생  | 정신력 : ${player.hp} | 몰입도 : ${player.minDmg} ~ ${player.maxDmg} Page | 수면시간 : ${player.minHeal} ~ ${player.maxHeal} | 이해력 : ${player.lev} | `) +
-        chalk.redBright(`\n| 문제집 | ${monster.hp} Page 남음 | 학습 피로도 : ${monster.minDmg} ~ ${monster.maxDmg} | 남은 제출기한 ${monster.day} 일! |`)
+        chalk.cyanBright(`| Stage: ${stage} | 제출 기한 D-day ${monster.day}/${monster.maxDay} | 장착한 필기구 : ${player.weapon.name} |`) +
+        chalk.yellowBright(`\n|   학생   | 정신력 : ${player.hp}/${player.maxHp}  | 몰입도 : ${player.minDmg}~${player.maxDmg} Page `) +
+        chalk.yellowBright(`| 수면효과 : ${player.minHeal}~${player.maxHeal} | 이해력 : ${player.lev} | `) +
+        chalk.redBright(`\n|  문제집  | ${monster.hp} Page 남음 | 학습 피로도 : ${monster.minDmg}~${monster.maxDmg} | 과목 : ${monster.type} | `)
     )
-    console.log(chalk.magentaBright(`===================================================================\n`));
+    console.log(chalk.magentaBright('='.repeat(69)));
 }
 
 
-export {
-    battle,
-    displayStatus
-};
+export default battle;

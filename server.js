@@ -1,4 +1,4 @@
-// 단순 그림 그리는 용도
+// 단순 글자색
 import chalk from 'chalk';
 // 문자를 그려주는 용도 
 import figlet from 'figlet';
@@ -13,7 +13,7 @@ function displayLobby() {
     // 타이틀 텍스트
     console.log(
         chalk.cyan(
-            figlet.textSync('Play Student', {
+            figlet.textSync('Lets Take A Test', {
                 font: 'Standard',
                 horizontalLayout: 'default',
                 verticalLayout: 'default'
@@ -22,11 +22,11 @@ function displayLobby() {
     );
 
     // 상단 경계선
-    const line = chalk.magentaBright('='.repeat(50));
+    const line = chalk.magentaBright('='.repeat(69));
     console.log(line);
 
     // 게임 이름
-    console.log(chalk.yellowBright.bold('학생이 되자! 게임에 오신것을 환영합니다!'));
+    console.log(chalk.yellowBright.bold('시험을 보자! 게임에 오신것을 환영합니다!'));
 
     // 설명 텍스트
     console.log(chalk.green('메뉴를 선택해주세요.'));
