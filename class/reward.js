@@ -131,7 +131,9 @@ class Rewards {
             ),
         );
         logs.push(
-            chalk.cyanBright(`| 장착한 필기구 : ${player.weapon.name} | 등급 : ${player.weapon.rating} |`),
+            chalk.cyanBright(
+                `| 장착한 필기구 : ${player.weapon.name} | 등급 : ${player.weapon.rating} |`,
+            ),
         );
         logs.push(
             chalk.yellowBright(
@@ -173,22 +175,40 @@ class Rewards {
 
             switch (choice) {
                 case '1':
-                    if (player.lev < (player.weapon.plus * 2 + stage * 2)) {
-                        logs.push(chalk.redBright(`강화에 필요한 이해력이 부족합니다.`));
+                    if (player.lev < player.weapon.plus * 2 + stage * 2) {
+                        logs.push(
+                            chalk.redBright(
+                                `강화에 필요한 이해력이 부족합니다.`,
+                            ),
+                        );
                         results = false;
                         break;
                     } else if (Math.random() * 100 <= player.weapon.plusProb) {
-                        logs.push(chalk.greenBright(`무기 강화에 성공했습니다!!`));
-                        player.levelSet(-(player.weapon.plus * 2 + stage * 2), logs);
+                        logs.push(
+                            chalk.greenBright(`무기 강화에 성공했습니다!!`),
+                        );
+                        player.levelSet(
+                            -(player.weapon.plus * 2 + stage * 2),
+                            logs,
+                        );
                         player.changeUpdate(plusWpn, logs);
                     } else {
-                        logs.push(chalk.redBright(`무기 강화에 실패했습니다..`));
-                        player.levelSet(-(player.weapon.plus * 2 + stage * 2), logs);
+                        logs.push(
+                            chalk.redBright(`무기 강화에 실패했습니다..`),
+                        );
+                        player.levelSet(
+                            -(player.weapon.plus * 2 + stage * 2),
+                            logs,
+                        );
                     }
                     results = true;
                     break;
                 case '2':
-                    logs.push(chalk.redBright(`선택을 취소했습니다! 선택지로 다시 이동합니다..`));
+                    logs.push(
+                        chalk.redBright(
+                            `선택을 취소했습니다! 선택지로 다시 이동합니다..`,
+                        ),
+                    );
                     results = false;
                     break;
                 default:

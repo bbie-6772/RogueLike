@@ -75,21 +75,20 @@ function displayStatus(stage, player, monster) {
         chalk.cyanBright(
             `| Stage: ${stage} | 제출 기한 D-day ${monster.day}/${monster.maxDay} | 장착한 필기구 : ${player.weapon.name} | 등급 : ${player.weapon.rating} |`,
         ) +
-        chalk.yellowBright(
-            `\n|   학생   | 정신력 : ${player.hp}/${player.maxHp}  | 몰입도 : ${player.minDmg}~${player.maxDmg} Page `,
-        ) +
-        chalk.yellowBright(
-            `| 수면효과 : ${player.minHeal}~${player.maxHeal} | 이해력 : ${player.lev} | `,
-        ) +
-        chalk.redBright(
-            `\n|  문제집  | ${monster.hp} Page 남음 | 학습 피로도 : ${monster.minDmg}~${monster.maxDmg} | 과목 : ${monster.type} | `,
-        ),
+            chalk.yellowBright(
+                `\n|   학생   | 정신력 : ${player.hp}/${player.maxHp}  | 몰입도 : ${player.minDmg}~${player.maxDmg} Page `,
+            ) +
+            chalk.yellowBright(
+                `| 수면효과 : ${player.minHeal}~${player.maxHeal} | 이해력 : ${player.lev} | `,
+            ) +
+            chalk.redBright(
+                `\n|  문제집  | ${monster.hp} Page 남음 | 학습 피로도 : ${monster.minDmg}~${monster.maxDmg} | 과목 : ${monster.type} | `,
+            ),
     );
     console.log(chalk.magentaBright('='.repeat(69)));
 }
 
 function inputSwitch(monster, player, logs) {
-
     console.log(
         chalk.green(
             `\n1. 문제풀기(공격) 2. 수면(회복) 3. 휴식(방어) 4. 복습(버프) 5. 다음 문제집(도망)`,
@@ -107,22 +106,22 @@ function inputSwitch(monster, player, logs) {
             monster.action(player, logs);
             if (player.hp > 0) {
                 monster.damaged(Dmg, logs);
-                (monster.hp > 0) ? monster.Day(player, logs) : 0;
+                monster.hp > 0 ? monster.Day(player, logs) : 0;
             }
             break;
         case '2':
             player.sleep(logs);
             monster.action(player, logs);
-            (monster.hp > 0) ? monster.Day(player, logs) : 0;
+            monster.hp > 0 ? monster.Day(player, logs) : 0;
             break;
         case '3':
             player.protect(logs);
             monster.action(player, logs);
-            (monster.hp > 0) ? monster.Day(player, logs) : 0;
+            monster.hp > 0 ? monster.Day(player, logs) : 0;
             break;
         case '4':
             console.log(chalk.blue('구현 준비중입니다.. '));
-            logs.pop()
+            logs.pop();
             return inputSwitch(monster, player, logs); // 유효하지 않은 입력일 경우 다시 입력 받음
         case '5':
             logs.push(chalk.blue('문제집을 쓰레기통에 버립니다!'));
@@ -133,7 +132,7 @@ function inputSwitch(monster, player, logs) {
             return true;
         default:
             console.log(chalk.red('올바르지 않은 접근입니다.'));
-            logs.pop()
+            logs.pop();
             return inputSwitch(monster, player, logs); // 유효하지 않은 입력일 경우 다시 입력 받음
     }
 }

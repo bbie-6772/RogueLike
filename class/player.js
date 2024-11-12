@@ -51,13 +51,17 @@ class Player {
     damaged(value, logs) {
         // 방어 여부
         if (this.shield) {
-            logs.push(chalk.greenBright(`휴식으로 정신력이 소모되지 않았습니다!`));
+            logs.push(
+                chalk.greenBright(`휴식으로 정신력이 소모되지 않았습니다!`),
+            );
             this.shield = false;
         } else if (this.hp - value > 0) {
             this.hp -= value;
-            logs.push(chalk.redBright(`정신력이 ${value}만큼 소모되었습니다! `));
+            logs.push(
+                chalk.redBright(`정신력이 ${value}만큼 소모되었습니다! `),
+            );
         } else {
-            this.die(logs)
+            this.die(logs);
         }
     }
 
@@ -104,45 +108,69 @@ class Player {
         if (value > 0) {
             this.lev += value;
             logs.push(chalk.green(`이해력이 ${value} 만큼 오른 것 같습니다!`));
-            let mndmg = value * Math.round(Math.random() * 2)
-            let mxdmg = value * Math.round(Math.random() * 2) + mndmg
-            let mnheal = value * Math.round(Math.random() * 2)
-            let mxheal = value * Math.round(Math.random() * 2) + mnheal
-            this.minDmg += mndmg
-            this.maxDmg += mxdmg
-            this.minHeal += mnheal
-            this.maxHeal += mxheal
-            logs.push(chalk.green(`최소 몰입도가 ${mndmg} Page 만큼 올랐습니다!`));
-            logs.push(chalk.green(`최대 몰입도가 ${mxdmg} Page 만큼 올랐습니다!`));
-            logs.push(chalk.green(`최소 수면효과가 ${mnheal} 만큼 올랐습니다!`));
-            logs.push(chalk.green(`최대 수면효과가 ${mxheal} 만큼 올랐습니다!`));
+            let mndmg = value * Math.round(Math.random() * 2);
+            let mxdmg = value * Math.round(Math.random() * 2) + mndmg;
+            let mnheal = value * Math.round(Math.random() * 2);
+            let mxheal = value * Math.round(Math.random() * 2) + mnheal;
+            this.minDmg += mndmg;
+            this.maxDmg += mxdmg;
+            this.minHeal += mnheal;
+            this.maxHeal += mxheal;
+            logs.push(
+                chalk.green(`최소 몰입도가 ${mndmg} Page 만큼 올랐습니다!`),
+            );
+            logs.push(
+                chalk.green(`최대 몰입도가 ${mxdmg} Page 만큼 올랐습니다!`),
+            );
+            logs.push(
+                chalk.green(`최소 수면효과가 ${mnheal} 만큼 올랐습니다!`),
+            );
+            logs.push(
+                chalk.green(`최대 수면효과가 ${mxheal} 만큼 올랐습니다!`),
+            );
         } else if (value < 0) {
             this.lev += value;
-            logs.push(chalk.red(`${Math.abs(value)} 만큼의 이해력이 떨어졌습니다..`));
-            this.minDmg += value * 2
-            this.maxDmg += value * 3
-            this.minHeal += value
-            this.maxHeal += value * 2
+            logs.push(
+                chalk.red(`${Math.abs(value)} 만큼의 이해력이 떨어졌습니다..`),
+            );
+            this.minDmg += value * 2;
+            this.maxDmg += value * 3;
+            this.minHeal += value;
+            this.maxHeal += value * 2;
             if (this.minDmg > 0) {
-                logs.push(chalk.red(`최소 몰입도가 ${value * 2} Page 만큼 떨어졌습니다..`));
+                logs.push(
+                    chalk.red(
+                        `최소 몰입도가 ${value * 2} Page 만큼 떨어졌습니다..`,
+                    ),
+                );
             } else {
                 this.minDmg = 0;
                 logs.push(chalk.red(`최소 몰입도가 0 Page로 떨어졌습니다..`));
             }
             if (this.maxDmg > 0) {
-                logs.push(chalk.red(`최대 몰입도가 ${value * 3} Page 만큼 떨어졌습니다..`));
+                logs.push(
+                    chalk.red(
+                        `최대 몰입도가 ${value * 3} Page 만큼 떨어졌습니다..`,
+                    ),
+                );
             } else {
                 this.maxDmg = 0;
                 logs.push(chalk.red(`최대 몰입도가 0 Page로 떨어졌습니다..`));
             }
             if (this.maxDmg > 0) {
-                logs.push(chalk.red(`최소 수면효과가 ${value} 만큼 떨어졌습니다..`));
+                logs.push(
+                    chalk.red(`최소 수면효과가 ${value} 만큼 떨어졌습니다..`),
+                );
             } else {
                 this.maxDmg = 0;
                 logs.push(chalk.red(`최소 수면효과가 0 으로 떨어졌습니다..`));
             }
             if (this.maxDmg > 0) {
-                logs.push(chalk.red(`최대 수면효과가 ${value * 2} 만큼 떨어졌습니다..`));
+                logs.push(
+                    chalk.red(
+                        `최대 수면효과가 ${value * 2} 만큼 떨어졌습니다..`,
+                    ),
+                );
             } else {
                 this.maxDmg = 0;
                 logs.push(chalk.red(`최대 수면효과가 0 으로 떨어졌습니다..`));
