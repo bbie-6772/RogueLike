@@ -129,7 +129,7 @@ class Weapon {
                     this.damage -= this.dayDmg;
                     // 누적값 초기화
                     logs.push(
-                        chalk.redBright(
+                        chalk.yellowBright(
                             `필기구의 몰입도가 이전 스테이지 때 벼락치기 효과로 증가했던 ${this.dayDmg} Page 만큼 감소하였습니다! `,
                         ),
                     );
@@ -159,7 +159,7 @@ class Weapon {
                 player.maxDmg += inc;
                 this.damage += inc;
                 logs.push(
-                    chalk.redBright(
+                    chalk.yellowBright(
                         `필기구의 몰입도가 이해도와 반비례하며 ${inc} Page 만큼 증가하였습니다! `,
                     ),
                 );

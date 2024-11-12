@@ -219,7 +219,7 @@ class Monster {
 
         // 만약 제출일 수 관련 무기일 시 데미지 업데이트
         if (player.weapon.type === 1) {
-            player.weapon.damageUpdate(player, this, 0, logs);
+            player.weapon.damageUpdate(player, this, null, logs);
         }
     }
 }
