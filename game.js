@@ -13,11 +13,13 @@ export async function startGame() {
     let status;
 
     while (stage <= 10) {
+        //동일한 몬스터?
         const monster = new Monster(stage);
+
         status = await battle(stage, player, monster);
+
         // 스테이지 클리어 시
         if (status === 'run') {
-            player.hp = player.maxHp;
             continue;
         } else if (status) {
             const reward = new Rewards(player, monster, stage);

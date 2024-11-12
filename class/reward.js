@@ -21,7 +21,7 @@ class Rewards {
             stage;
         //최대 정신력 증가
         this.hpUp =
-            Math.round(Math.random() * (monster.value * 5)) +
+            Math.round(Math.random() * (monster.value * 8)) +
             monster.value * 2 +
             stage;
     }
@@ -52,7 +52,7 @@ class Rewards {
         );
         logs.push(
             chalk.greenBright(
-                `| 휴식보상 | 최대 정신력 : ${this.hpUp} | 최대 수면효과 증가 : ${this.healUp} |`,
+                `| 휴식보상 | 최대 정신력 : ${this.hpUp} | 정신력 회복 : ${Math.round(this.hpUp * 1.5)} | 최대 수면효과 증가 : ${this.healUp} |`,
             ),
         );
 
@@ -63,8 +63,10 @@ class Rewards {
                 await new Promise((resolve) => setTimeout(resolve, 200));
             }
 
+            // 선택이 되었을 때, 최종 값을 출력
             if (choice) {
-                await new Promise((resolve) => setTimeout(resolve, 1000));
+                // 값 확인용 정지
+                const next = readlineSync.question('Next Stage>>');
                 return results;
             }
 
@@ -81,7 +83,7 @@ class Rewards {
             switch (choice) {
                 case '1':
                     player.maxHpSet(this.hpUp, logs);
-                    player.heal(this.hpUp, logs);
+                    player.heal(Math.round(this.hpUp * 1.5), logs);
                     results = true;
                     break;
                 case '2':
@@ -93,8 +95,12 @@ class Rewards {
                     );
                     break;
                 default:
-                    console.log(chalk.red('올바르지 않은 접근입니다.'));
-                    handleUserInput(); // 유효하지 않은 입력일 경우 다시 입력 받음
+                    logs.push(
+                        chalk.redBright(
+                            `선택을 취소했습니다! 선택지로 다시 이동합니다..`,
+                        ),
+                    );
+                    continue;
             }
         }
     }
@@ -125,7 +131,7 @@ class Rewards {
             ),
         );
         logs.push(
-            chalk.cyanBright(`| 장착한 필기구 : ${player.weapon.name} |`),
+            chalk.cyanBright(`| 장착한 필기구 : ${player.weapon.name} | 등급 : ${player.weapon.rating} |`),
         );
         logs.push(
             chalk.yellowBright(
@@ -139,7 +145,7 @@ class Rewards {
         );
         logs.push(
             chalk.redBright(
-                `| 강화 비용 | 이해력 : ${player.lev}/${player.weapon.plus * 2 + 1} | 확률 : ${player.weapon.plusProb}% | `,
+                `| 강화 비용 | 이해력 : ${player.lev}/${player.weapon.plus * 2 + stage * 2} | 확률 : ${player.weapon.plusProb}% | `,
             ),
         );
 
@@ -152,8 +158,10 @@ class Rewards {
 
             logs = [];
 
+            // 선택이 되었을 때, 최종 값을 출력
             if (choice) {
-                await new Promise((resolve) => setTimeout(resolve, 1000));
+                // 값 확인용 정지
+                const next = readlineSync.question('Next Stage>>');
                 return results;
             }
 
@@ -165,31 +173,31 @@ class Rewards {
 
             switch (choice) {
                 case '1':
-                    if (Math.random() * 100 <= player.weapon.plusProb) {
-                        logs.push(
-                            chalk.greenBright(`무기 강화에 성공했습니다!!`),
-                        );
-                        player.levelSet(-(player.weapon.plus * 2 + 1), logs);
+                    if (player.lev < (player.weapon.plus * 2 + stage * 2)) {
+                        logs.push(chalk.redBright(`강화에 필요한 이해력이 부족합니다.`));
+                        results = false;
+                        break;
+                    } else if (Math.random() * 100 <= player.weapon.plusProb) {
+                        logs.push(chalk.greenBright(`무기 강화에 성공했습니다!!`));
+                        player.levelSet(-(player.weapon.plus * 2 + stage * 2), logs);
                         player.changeUpdate(plusWpn, logs);
                     } else {
-                        logs.push(
-                            chalk.redBright(`무기 강화에 실패했습니다..`),
-                        );
-                        player.levelSet(-(player.weapon.plus * 2 + 1), logs);
+                        logs.push(chalk.redBright(`무기 강화에 실패했습니다..`));
+                        player.levelSet(-(player.weapon.plus * 2 + stage * 2), logs);
                     }
                     results = true;
                     break;
                 case '2':
+                    logs.push(chalk.redBright(`선택을 취소했습니다! 선택지로 다시 이동합니다..`));
+                    results = false;
+                    break;
+                default:
                     logs.push(
                         chalk.redBright(
                             `선택을 취소했습니다! 선택지로 다시 이동합니다..`,
                         ),
                     );
-                    results = false;
-                    break;
-                default:
-                    console.log(chalk.red('올바르지 않은 접근입니다.'));
-                    handleUserInput(); // 유효하지 않은 입력일 경우 다시 입력 받음
+                    continue;
             }
         }
     }

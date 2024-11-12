@@ -11,7 +11,7 @@ const win = async (player) => {
         console.clear();
 
         console.log(
-            chalk.red(
+            chalk.yellow(
                 figlet.textSync('Win! A++', {
                     font: 'Standard',
                     horizontalLayout: 'default',
@@ -20,14 +20,15 @@ const win = async (player) => {
             ),
         );
 
-        logs.push(chalk.magentaBright(`==== 결과 ====`));
-        logs.push(chalk.cyanBright(`| Stage: CLEAR |`));
-        logs.push(chalk.cyanBright(`| Ending : 1 | 나는 공부의 신 |`));
-        logs.push(chalk.cyanBright(`| 최대 이해력 : ${player.maxLev} |`));
-        logs.push(chalk.yellowBright(`| 푼 문제집 수 : ${player.kills} |`));
+        logs.push(chalk.magentaBright(`========= 결과 =========`));
+        logs.push(chalk.cyanBright(`|    Stage : Clear    |`));
+        logs.push(chalk.cyanBright(`|      Ending : 1     |`));
+        logs.push(chalk.cyanBright(`|     나는 신이다     |`));
+        logs.push(chalk.cyanBright(`|   최대 이해력 : ${player.maxLev}   |`));
+        logs.push(chalk.yellowBright(`|   푼 문제집 수 : ${player.kills}  |`));
         logs.push(chalk.redBright(`| 풀었던 Page들 : ${player.totalDmg} |`));
         logs.push(chalk.greenBright(`| 회복한 정신력 : ${player.totalHeal} |`));
-        logs.push(chalk.magentaBright(`=============`));
+        logs.push(chalk.magentaBright(`========================`));
 
         for await (const log of logs) {
             console.log(log);
@@ -47,7 +48,7 @@ const win = async (player) => {
                 process.exit(0);
             default:
                 console.log(chalk.red('올바르지 않은 접근입니다.'));
-                handleUserInput(); // 유효하지 않은 입력일 경우 다시 입력 받음
+                continue;
         }
     }
 };

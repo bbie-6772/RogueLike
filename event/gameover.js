@@ -1,4 +1,5 @@
 import chalk from 'chalk';
+import figlet from 'figlet';
 import readlineSync from 'readline-sync';
 import { startGame } from '../game.js';
 
@@ -9,14 +10,25 @@ const endgame = async (stage, player) => {
     while (exit) {
         console.clear();
 
-        logs.push(chalk.magentaBright(`==== 결과 ====`));
-        logs.push(chalk.cyanBright(`| Stage: ${stage} |`));
-        logs.push(chalk.cyanBright(`| Ending : 0 | 나는 바보다 |`));
-        logs.push(chalk.cyanBright(`| 최대 이해력 : ${player.maxLev} |`));
-        logs.push(chalk.yellowBright(`| 푼 문제집 수 : ${player.kills} |`));
+        console.log(
+            chalk.red(
+                figlet.textSync('Lose! F-', {
+                    font: 'Standard',
+                    horizontalLayout: 'default',
+                    verticalLayout: 'default',
+                }),
+            ),
+        );
+
+        logs.push(chalk.magentaBright(`========= 결과 =========`));
+        logs.push(chalk.cyanBright(`|    Last Stage: ${stage}    |`));
+        logs.push(chalk.cyanBright(`|      Ending : 0     |`));
+        logs.push(chalk.cyanBright(`|     나는 바보다     |`));
+        logs.push(chalk.cyanBright(`|   최대 이해력 : ${player.maxLev}   |`));
+        logs.push(chalk.yellowBright(`|   푼 문제집 수 : ${player.kills}  |`));
         logs.push(chalk.redBright(`| 풀었던 Page들 : ${player.totalDmg} |`));
         logs.push(chalk.greenBright(`| 회복한 정신력 : ${player.totalHeal} |`));
-        logs.push(chalk.magentaBright(`=============`));
+        logs.push(chalk.magentaBright(`========================`));
 
         for await (const log of logs) {
             console.log(log);
@@ -36,7 +48,7 @@ const endgame = async (stage, player) => {
                 process.exit(0);
             default:
                 console.log(chalk.red('올바르지 않은 접근입니다.'));
-                handleUserInput(); // 유효하지 않은 입력일 경우 다시 입력 받음
+                continue;
         }
     }
 };

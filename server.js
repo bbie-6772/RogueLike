@@ -66,6 +66,7 @@ function handleUserInput() {
             console.log(chalk.blue('구현 준비중입니다.. 게임을 시작하세요'));
             // 옵션 메뉴 로직을 구현
             handleUserInput();
+
             break;
         case '4':
             console.log(chalk.red('게임을 종료합니다.'));
