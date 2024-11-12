@@ -108,10 +108,10 @@ class Player {
         if (value > 0) {
             this.lev += value;
             logs.push(chalk.green(`이해력이 ${value} 만큼 오른 것 같습니다!`));
-            let mndmg = value * Math.round(Math.random() * 2);
-            let mxdmg = value * Math.round(Math.random() * 2) + mndmg;
-            let mnheal = value * Math.round(Math.random() * 2);
-            let mxheal = value * Math.round(Math.random() * 2) + mnheal;
+            const mndmg = value * Math.round(Math.random() * 2);
+            const mxdmg = value * Math.round(Math.random() * 2) + mndmg;
+            const mnheal = value * Math.round(Math.random() * 2);
+            const mxheal = value * Math.round(Math.random() * 2) + mnheal;
             this.minDmg += mndmg;
             this.maxDmg += mxdmg;
             this.minHeal += mnheal;
