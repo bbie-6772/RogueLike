@@ -9,7 +9,6 @@ import admin from './event/admin.js';
 import { execSync } from 'child_process';
 import { update } from './storage/weapons.js';
 
-
 // 로비 화면을 출력하는 함수
 function displayLobby() {
     console.clear();
@@ -67,8 +66,12 @@ async function handleUserInput() {
             handleUserInput();
             break;
         case '3':
-            // 무기 정보 확인 및 추가 및 삭제 
-            console.log(chalk.redBright('관리자 모드 진입을 위해 비밀번호를 입력해주세요'));
+            // 무기 정보 확인 및 추가 및 삭제
+            console.log(
+                chalk.redBright(
+                    '관리자 모드 진입을 위해 비밀번호를 입력해주세요',
+                ),
+            );
             admin(readlineSync.question('비밀번호:'));
             break;
         case '4':

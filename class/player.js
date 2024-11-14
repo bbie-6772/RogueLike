@@ -7,7 +7,9 @@ class Player {
         this.maxHp = 100;
         this.hp = this.maxHp;
         // 기본 무기
-        this.weapon = Weapons.find((val) => { return val.name === "평범한 노트" });
+        this.weapon = Weapons.find((val) => {
+            return val.name === '평범한 노트';
+        });
         // 몰입도
         this.minDmg = 20 + this.weapon.damage;
         this.maxDmg = 30 + this.weapon.damage;

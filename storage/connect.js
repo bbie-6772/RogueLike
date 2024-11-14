@@ -3,12 +3,9 @@ import { dbName, dbUrl } from '../secret.js';
 
 const connect = () => {
     mongoose
-        .connect(
-            dbUrl,
-            {
-                dbName: dbName, // 데이터베이스명을 사용
-            },
-        )
+        .connect(dbUrl, {
+            dbName: dbName, // 데이터베이스명을 사용
+        })
         .catch((err) => console.log(err))
         .then(() => console.log('데이터 불러오기 성공'));
 };

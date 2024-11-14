@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 const weaponSchema = new mongoose.Schema({
     // // 이름
@@ -26,8 +26,7 @@ const weaponSchema = new mongoose.Schema({
     rating: {
         type: String,
         required: true,
-    }
-})
+    },
+});
 
-export default mongoose.model("WeaponSch", weaponSchema)
-
+export default mongoose.model('WeaponSch', weaponSchema);

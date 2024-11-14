@@ -26,12 +26,36 @@ const win = async (player) => {
         logs.push(chalk.cyanBright(`|     Stage : Clear    |`));
         logs.push(chalk.cyanBright(`|       Ending : 1     |`));
         logs.push(chalk.cyanBright(`|      나는 신이다     |`));
-        logs.push(chalk.yellowBright(`|   최종 점수   : ${String(player.score).padStart(4, " ")} |`));
-        logs.push(chalk.yellowBright(`|   최대 이해력 : ${String(player.maxLev).padStart(3, " ")}  |`));
-        logs.push(chalk.yellowBright(`|  푼 문제집 수 : ${String(player.kills).padStart(3, " ")}  |`));
-        logs.push(chalk.yellowBright(`| 풀었던 Page들 : ${String(player.totalDmg).padStart(4, " ")} |`));
-        logs.push(chalk.redBright(`|  받은 피로도  : ${String(player.hurt).padStart(4, " ")} |`));
-        logs.push(chalk.greenBright(`| 회복한 정신력 : ${String(player.totalHeal).padStart(4, " ")} |`));
+        logs.push(
+            chalk.yellowBright(
+                `|   최종 점수   : ${String(player.score).padStart(4, ' ')} |`,
+            ),
+        );
+        logs.push(
+            chalk.yellowBright(
+                `|   최대 이해력 : ${String(player.maxLev).padStart(3, ' ')}  |`,
+            ),
+        );
+        logs.push(
+            chalk.yellowBright(
+                `|  푼 문제집 수 : ${String(player.kills).padStart(3, ' ')}  |`,
+            ),
+        );
+        logs.push(
+            chalk.yellowBright(
+                `| 풀었던 Page들 : ${String(player.totalDmg).padStart(4, ' ')} |`,
+            ),
+        );
+        logs.push(
+            chalk.redBright(
+                `|  받은 피로도  : ${String(player.hurt).padStart(4, ' ')} |`,
+            ),
+        );
+        logs.push(
+            chalk.greenBright(
+                `| 회복한 정신력 : ${String(player.totalHeal).padStart(4, ' ')} |`,
+            ),
+        );
         logs.push(chalk.magentaBright(`========================`));
 
         for await (const log of logs) {

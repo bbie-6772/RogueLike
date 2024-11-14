@@ -41,9 +41,9 @@ const battle = async (stage, player, monster, maxscore) => {
             // 도망갈 시
             logs.push(chalk.yellowBright('문제집을 쓰레기통에 버립니다!'));
             logs.push(chalk.redBright('정신력이 나약해지는 느낌이 듭니다..'));
-            player.maxHpSet(-Math.round(player.maxHp / 5), logs)
+            player.maxHpSet(-Math.round(player.maxHp / 5), logs);
             logs.push(chalk.greenBright('한숨 잠을 잡니다..'));
-            player.heal(Math.round(player.hp * 0.5), logs)
+            player.heal(Math.round(player.hp * 0.5), logs);
             logs.push(chalk.yellowBright('새로운 문제집을 찾습니다'));
             // 값 확인용 정지
             for await (const log of logs) {
@@ -105,30 +105,30 @@ function displayStatus(stage, player, monster, maxscore) {
             chalk.cyanBright(
                 `| Stage: ${stage} | 시험 기간 ${monster.day}/${monster.maxDay} | 필기구 : ${player.weapon.name} | 등급 : ${player.weapon.rating} |`,
             ) +
-            chalk.yellowBright(
-                `\n|   학생   | 정신력 : ${player.hp}/${player.maxHp} | 몰입도 : ${player.minDmg}~${player.maxDmg} Page |: `,
-            ) +
-            chalk.greenBright(
-                `\n           | 수면효과 : ${player.minHeal}~${player.maxHeal} | 이해력 : ${player.lev} | 도달 점수 : ${player.score}/${maxscore} | `,
-            ) +
-            chalk.redBright(
-                `\n|  시험지  | ${monster.hp} Page 남음 | 학습 피로도 : ${monster.minDmg}~${monster.maxDmg} | 과목 : ${monster.type} | `,
-            ),
+                chalk.yellowBright(
+                    `\n|   학생   | 정신력 : ${player.hp}/${player.maxHp} | 몰입도 : ${player.minDmg}~${player.maxDmg} Page |: `,
+                ) +
+                chalk.greenBright(
+                    `\n           | 수면효과 : ${player.minHeal}~${player.maxHeal} | 이해력 : ${player.lev} | 도달 점수 : ${player.score}/${maxscore} | `,
+                ) +
+                chalk.redBright(
+                    `\n|  시험지  | ${monster.hp} Page 남음 | 학습 피로도 : ${monster.minDmg}~${monster.maxDmg} | 과목 : ${monster.type} | `,
+                ),
         );
     } else {
         console.log(
             chalk.cyanBright(
                 `| Stage: ${stage} | 공부 기한 ${monster.day}/${monster.maxDay} | 필기구 : ${player.weapon.name} | 등급 : ${player.weapon.rating} |`,
             ) +
-            chalk.yellowBright(
-                `\n|   학생   | 정신력 : ${player.hp}/${player.maxHp} | 몰입도 : ${player.minDmg}~${player.maxDmg} Page |`,
-            ) +
-            chalk.greenBright(
-                `\n           | 수면효과 : ${player.minHeal}~${player.maxHeal} | 이해력 : ${player.lev} | 도달 점수 : ${player.score}/${maxscore} | `,
-            ) +
-            chalk.redBright(
-                `\n|  문제집  | ${monster.hp} Page 남음 | 학습 피로도 : ${monster.minDmg}~${monster.maxDmg} | 과목 : ${monster.type} | `,
-            ),
+                chalk.yellowBright(
+                    `\n|   학생   | 정신력 : ${player.hp}/${player.maxHp} | 몰입도 : ${player.minDmg}~${player.maxDmg} Page |`,
+                ) +
+                chalk.greenBright(
+                    `\n           | 수면효과 : ${player.minHeal}~${player.maxHeal} | 이해력 : ${player.lev} | 도달 점수 : ${player.score}/${maxscore} | `,
+                ) +
+                chalk.redBright(
+                    `\n|  문제집  | ${monster.hp} Page 남음 | 학습 피로도 : ${monster.minDmg}~${monster.maxDmg} | 과목 : ${monster.type} | `,
+                ),
         );
     }
 

@@ -108,12 +108,12 @@ const displayReward = function (stage, player, maxscore) {
         chalk.cyanBright(
             `| Stage: ${stage} | 필기구 : ${player.weapon.name} | 등급 : ${player.weapon.rating} |`,
         ) +
-        chalk.yellowBright(
-            `\n|   학생   | 정신력 : ${player.hp}/${player.maxHp} | 몰입도 : ${player.minDmg}~${player.maxDmg} Page | `,
-        ) +
-        chalk.greenBright(
-            `\n           | 수면효과 : ${player.minHeal}~${player.maxHeal} | 이해력 : ${player.lev} | 도달 점수 : ${player.score}/${maxscore} | `,
-        ),
+            chalk.yellowBright(
+                `\n|   학생   | 정신력 : ${player.hp}/${player.maxHp} | 몰입도 : ${player.minDmg}~${player.maxDmg} Page | `,
+            ) +
+            chalk.greenBright(
+                `\n           | 수면효과 : ${player.minHeal}~${player.maxHeal} | 이해력 : ${player.lev} | 도달 점수 : ${player.score}/${maxscore} | `,
+            ),
     );
     console.log(chalk.magentaBright('='.repeat(69)));
 };
@@ -385,9 +385,7 @@ const gamble = async function (player, coast, newWpn) {
             return [results, coast, newWpn];
         }
 
-        console.log(
-            chalk.yellowBright(`\n1. 뽑기 2. 필기구 교체 3. 돌아가기`),
-        );
+        console.log(chalk.yellowBright(`\n1. 뽑기 2. 필기구 교체 3. 돌아가기`));
 
         choice = readlineSync.question('무엇을 할까요? ');
 
@@ -414,63 +412,63 @@ const gamble = async function (player, coast, newWpn) {
                         ratingWeapons = Weapons.filter((a) => a.rating === 'H');
                         newWpn =
                             ratingWeapons[
-                            Math.round(
-                                Math.random() * (ratingWeapons.length - 1),
-                            )
+                                Math.round(
+                                    Math.random() * (ratingWeapons.length - 1),
+                                )
                             ];
                         //S급
                     } else if (prob < 7) {
                         ratingWeapons = Weapons.filter((a) => a.rating === 'S');
                         newWpn =
                             ratingWeapons[
-                            Math.round(
-                                Math.random() * (ratingWeapons.length - 1),
-                            )
+                                Math.round(
+                                    Math.random() * (ratingWeapons.length - 1),
+                                )
                             ];
                         //A급
                     } else if (prob < 15) {
                         ratingWeapons = Weapons.filter((a) => a.rating === 'A');
                         newWpn =
                             ratingWeapons[
-                            Math.round(
-                                Math.random() * (ratingWeapons.length - 1),
-                            )
+                                Math.round(
+                                    Math.random() * (ratingWeapons.length - 1),
+                                )
                             ];
                         //B급
                     } else if (prob < 25) {
                         ratingWeapons = Weapons.filter((a) => a.rating === 'B');
                         newWpn =
                             ratingWeapons[
-                            Math.round(
-                                Math.random() * (ratingWeapons.length - 1),
-                            )
+                                Math.round(
+                                    Math.random() * (ratingWeapons.length - 1),
+                                )
                             ];
                         //C급
                     } else if (prob < 40) {
                         ratingWeapons = Weapons.filter((a) => a.rating === 'C');
                         newWpn =
                             ratingWeapons[
-                            Math.round(
-                                Math.random() * (ratingWeapons.length - 1),
-                            )
+                                Math.round(
+                                    Math.random() * (ratingWeapons.length - 1),
+                                )
                             ];
                         //D급
                     } else if (prob < 65) {
                         ratingWeapons = Weapons.filter((a) => a.rating === 'D');
                         newWpn =
                             ratingWeapons[
-                            Math.round(
-                                Math.random() * (ratingWeapons.length - 1),
-                            )
+                                Math.round(
+                                    Math.random() * (ratingWeapons.length - 1),
+                                )
                             ];
                         //E급
                     } else if (prob <= 100) {
                         ratingWeapons = Weapons.filter((a) => a.rating === 'E');
                         newWpn =
                             ratingWeapons[
-                            Math.round(
-                                Math.random() * (ratingWeapons.length - 1),
-                            )
+                                Math.round(
+                                    Math.random() * (ratingWeapons.length - 1),
+                                )
                             ];
                     }
                     //뽑기 비용 지불

@@ -2,7 +2,7 @@ import Weapon from '../class/weapon.js';
 import connect from './connect.js';
 import WeaponSch from './weapon-schemas.js';
 
-connect()
+connect();
 
 const Weapons = [];
 
@@ -10,19 +10,14 @@ const update = async () => {
     //초기화
     Weapons.splice(0, Weapons.length);
 
-    const temp = await WeaponSch.find().exec()
+    const temp = await WeaponSch.find().exec();
     //업데이트
     temp.forEach((val) => {
-        Weapons.push(new Weapon(
-            val.name,
-            val.damage,
-            val.heal,
-            val.rating,
-            val.type,
-        ))
-    })
-}
-
+        Weapons.push(
+            new Weapon(val.name, val.damage, val.heal, val.rating, val.type),
+        );
+    });
+};
 
 // //E 급
 // Weapons.push(new Weapon('평범한 노트', 0, 0, 'E', 0));
