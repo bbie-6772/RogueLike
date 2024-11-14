@@ -1,13 +1,13 @@
 import chalk from 'chalk';
-import Weapons from '../storage/weapons.js';
+import { Weapons, update } from '../storage/weapons.js';
 
 class Player {
     constructor() {
         // 정신력
         this.maxHp = 100;
         this.hp = this.maxHp;
-        // 무기
-        this.weapon = Weapons[Weapons.length - 1];
+        // 기본 무기
+        this.weapon = Weapons.find((val) => { return val.name === "평범한 노트" });
         // 몰입도
         this.minDmg = 20 + this.weapon.damage;
         this.maxDmg = 30 + this.weapon.damage;
@@ -239,7 +239,7 @@ class Player {
             );
         } else if (value < 0) {
             this.maxHp += value;
-            this.hurt += value;
+            this.hurt -= value;
             logs.push(
                 chalk.redBright(
                     `최대 정신력이 ${Math.abs(value)} 정도 떨어졌습니다..`,

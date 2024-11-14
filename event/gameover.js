@@ -1,13 +1,13 @@
 import chalk from 'chalk';
 import figlet from 'figlet';
 import readlineSync from 'readline-sync';
-import { startGame } from '../game.js';
+import start from '../server.js';
 
 const endgame = async (stage, player) => {
     let logs = [];
-    let exit = true;
+    let exit = false;
 
-    while (exit) {
+    while (!exit) {
         console.clear();
 
         logs = [];
@@ -25,13 +25,13 @@ const endgame = async (stage, player) => {
         logs.push(chalk.magentaBright(`========= 결과 =========`));
         logs.push(chalk.cyanBright(`|     Last Stage: ${stage}    |`));
         logs.push(chalk.cyanBright(`|       Ending : 0     |`));
-        logs.push(chalk.cyanBright(`|      나는 바보다     |`));
-        logs.push(chalk.yellowBright(`|   최종 점수   : ${player.score} |`));
-        logs.push(chalk.yellowBright(`|   최대 이해력 : ${player.maxLev}  |`));
-        logs.push(chalk.yellowBright(`|   푼 문제집 수 : ${player.kills}  |`));
-        logs.push(chalk.yellowBright(`| 풀었던 Page들 : ${player.totalDmg} |`));
-        logs.push(chalk.redBright(`|  받은 피로도  : ${player.hurt} |`));
-        logs.push(chalk.greenBright(`| 회복한 정신력 : ${player.totalHeal} |`));
+        logs.push(chalk.cyanBright(`|      나는 바보다     |`))
+        logs.push(chalk.yellowBright(`|   최종 점수   : ${String(player.score).padStart(4, " ")} |`));
+        logs.push(chalk.yellowBright(`|   최대 이해력 : ${String(player.maxLev).padStart(3, " ")}  |`));
+        logs.push(chalk.yellowBright(`|  푼 문제집 수 : ${String(player.kills).padStart(3, " ")}  |`));
+        logs.push(chalk.yellowBright(`| 풀었던 Page들 : ${String(player.totalDmg).padStart(4, " ")} |`));
+        logs.push(chalk.redBright(`|  받은 피로도  : ${String(player.hurt).padStart(4, " ")} |`));
+        logs.push(chalk.greenBright(`| 회복한 정신력 : ${String(player.totalHeal).padStart(4, " ")} |`));
         logs.push(chalk.magentaBright(`========================`));
 
         for await (const log of logs) {
@@ -40,13 +40,13 @@ const endgame = async (stage, player) => {
             await new Promise((resolve) => setTimeout(resolve, 300));
         }
 
-        console.log(chalk.yellowBright(`\n1. 새로운 인생 2. 현타와서 종료`));
-        const choice = readlineSync.question('Choice? ');
+        console.log(chalk.yellowBright(`\n1. 메인화면 2. 현타와서 종료`));
+        const choice = readlineSync.question('당신의 행동은? ');
 
         switch (choice) {
             case '1':
-                logs.push(chalk.yellowBright('게임을 다시 시작합니다!'));
-                return startGame();
+                console.log(chalk.yellowBright('메인화면으로 이동합니다!'));
+                return start();
             case '2':
                 console.log(chalk.redBright('게임이 종료됩니다!'));
                 process.exit(0);

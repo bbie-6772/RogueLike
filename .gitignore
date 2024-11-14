@@ -120,4 +120,6 @@ dist
 .vscode/*
 /.vscode
 
+# 비밀문서
 기획.txt
+secret.js

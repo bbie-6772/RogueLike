@@ -120,7 +120,7 @@ class bossMonster {
                 console.log(chalk.cyanBright(`정답이 무엇일까요..?`));
                 console.log(chalk.redBright(`틀리면 정신력이 절반이 됩니다!`));
 
-                const input = readlineSync.question('answer?');
+                const input = readlineSync.question('정답은?');
 
                 if (Number(input) === answer) {
                     logs.push(

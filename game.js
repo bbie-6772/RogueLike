@@ -7,7 +7,7 @@ import endgame from './event/gameover.js';
 import battle from './event/battle.js';
 import win from './event/ending.js';
 
-export async function startGame() {
+export default async function startGame() {
     console.clear();
     const player = new Player();
     let stage = 1;

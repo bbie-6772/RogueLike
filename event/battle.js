@@ -10,7 +10,7 @@ const battle = async (stage, player, monster, maxscore) => {
         console.clear();
         console.log(
             chalk.red(
-                figlet.textSync('Study Time', {
+                figlet.textSync('     Study Time', {
                     font: 'Standard',
                     horizontalLayout: 'default',
                     verticalLayout: 'default',
@@ -34,14 +34,25 @@ const battle = async (stage, player, monster, maxscore) => {
             // 몬스터를 처치 시
             player.kills += 1;
             // 값 확인용 정지
-            const next = readlineSync.question('Next>>');
+            const next = readlineSync.question('다음으로 이동>>');
             return true;
         } else if (run) {
+            logs = [];
             // 도망갈 시
-            player.maxHp -= 10;
-            player.hp = player.maxHp;
+            logs.push(chalk.yellowBright('문제집을 쓰레기통에 버립니다!'));
+            logs.push(chalk.redBright('정신력이 나약해지는 느낌이 듭니다..'));
+            player.maxHpSet(-Math.round(player.maxHp / 5), logs)
+            logs.push(chalk.greenBright('한숨 잠을 잡니다..'));
+            player.heal(Math.round(player.hp * 0.5), logs)
+            logs.push(chalk.yellowBright('새로운 문제집을 찾습니다'));
             // 값 확인용 정지
-            const next = readlineSync.question('Next>>');
+            for await (const log of logs) {
+                console.log(log);
+                // 애니메이션 효과 딜레이
+                await new Promise((resolve) => setTimeout(resolve, 300));
+            }
+
+            const next = readlineSync.question('다음으로 이동>>');
             return 'run';
         }
 
@@ -79,7 +90,7 @@ const battle = async (stage, player, monster, maxscore) => {
     displayStatus(stage, player, monster);
 
     // 값 확인용 정지
-    const next = readlineSync.question('Next>>');
+    const next = readlineSync.question('다음으로 이동>>');
     return false;
 };
 
@@ -94,30 +105,30 @@ function displayStatus(stage, player, monster, maxscore) {
             chalk.cyanBright(
                 `| Stage: ${stage} | 시험 기간 ${monster.day}/${monster.maxDay} | 필기구 : ${player.weapon.name} | 등급 : ${player.weapon.rating} |`,
             ) +
-                chalk.yellowBright(
-                    `\n|   학생   | 정신력 : ${player.hp}/${player.maxHp} | 몰입도 : ${player.minDmg}~${player.maxDmg} Page |: `,
-                ) +
-                chalk.greenBright(
-                    `\n           | 수면효과 : ${player.minHeal}~${player.maxHeal} | 이해력 : ${player.lev} | 도달 점수 : ${player.score}/${maxscore} | `,
-                ) +
-                chalk.redBright(
-                    `\n|  시험지  | ${monster.hp} Page 남음 | 학습 피로도 : ${monster.minDmg}~${monster.maxDmg} | 과목 : ${monster.type} | `,
-                ),
+            chalk.yellowBright(
+                `\n|   학생   | 정신력 : ${player.hp}/${player.maxHp} | 몰입도 : ${player.minDmg}~${player.maxDmg} Page |: `,
+            ) +
+            chalk.greenBright(
+                `\n           | 수면효과 : ${player.minHeal}~${player.maxHeal} | 이해력 : ${player.lev} | 도달 점수 : ${player.score}/${maxscore} | `,
+            ) +
+            chalk.redBright(
+                `\n|  시험지  | ${monster.hp} Page 남음 | 학습 피로도 : ${monster.minDmg}~${monster.maxDmg} | 과목 : ${monster.type} | `,
+            ),
         );
     } else {
         console.log(
             chalk.cyanBright(
                 `| Stage: ${stage} | 공부 기한 ${monster.day}/${monster.maxDay} | 필기구 : ${player.weapon.name} | 등급 : ${player.weapon.rating} |`,
             ) +
-                chalk.yellowBright(
-                    `\n|   학생   | 정신력 : ${player.hp}/${player.maxHp} | 몰입도 : ${player.minDmg}~${player.maxDmg} Page |`,
-                ) +
-                chalk.greenBright(
-                    `\n           | 수면효과 : ${player.minHeal}~${player.maxHeal} | 이해력 : ${player.lev} | 도달 점수 : ${player.score}/${maxscore} | `,
-                ) +
-                chalk.redBright(
-                    `\n|  문제집  | ${monster.hp} Page 남음 | 학습 피로도 : ${monster.minDmg}~${monster.maxDmg} | 과목 : ${monster.type} | `,
-                ),
+            chalk.yellowBright(
+                `\n|   학생   | 정신력 : ${player.hp}/${player.maxHp} | 몰입도 : ${player.minDmg}~${player.maxDmg} Page |`,
+            ) +
+            chalk.greenBright(
+                `\n           | 수면효과 : ${player.minHeal}~${player.maxHeal} | 이해력 : ${player.lev} | 도달 점수 : ${player.score}/${maxscore} | `,
+            ) +
+            chalk.redBright(
+                `\n|  문제집  | ${monster.hp} Page 남음 | 학습 피로도 : ${monster.minDmg}~${monster.maxDmg} | 과목 : ${monster.type} | `,
+            ),
         );
     }
 
@@ -132,7 +143,7 @@ function inputSwitch(monster, player, logs) {
         ),
     );
 
-    const choice = readlineSync.question('Choice? ');
+    const choice = readlineSync.question('당신의 행동은? ');
 
     // 플레이어의 선택에 따라 다음 행동 처리
     logs.push(chalk.yellowBright(`${choice}번을 선택하셨습니다.`));
@@ -161,11 +172,6 @@ function inputSwitch(monster, player, logs) {
             monster.hp * player.hp > 0 ? monster.Day(player, logs) : 0;
             break;
         case '5':
-            logs.push(chalk.yellowBright('문제집을 쓰레기통에 버립니다!'));
-            logs.push(chalk.redBright('정신력이 나약해지는 느낌이 듭니다..'));
-            logs.push(chalk.redBright('최대 정신력 -10 '));
-            logs.push(chalk.greenBright('정신력이 최대로 회복됩니다'));
-            logs.push(chalk.yellowBright('새로운 문제집을 찾습니다'));
             return true;
         default:
             console.log(

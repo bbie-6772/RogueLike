@@ -112,10 +112,10 @@ class Weapon {
                 this.damage += inc;
                 inc > 0
                     ? logs.push(
-                          chalk.yellowBright(
-                              `필기구의 몰입도가 이해력과 비례해 ${inc} Page 만큼 증가하였습니다! `,
-                          ),
-                      )
+                        chalk.yellowBright(
+                            `필기구의 몰입도가 이해력과 비례해 ${inc} Page 만큼 증가하였습니다! `,
+                        ),
+                    )
                     : 0;
                 break;
             case 1:
@@ -136,12 +136,12 @@ class Weapon {
                     this.dayDmg += inc;
                     inc > 0
                         ? logs.push(
-                              chalk.yellowBright(
-                                  `벼락치기 효과로 몰입도가 남은 제출 일 수와 비례해 ${inc} Page 만큼 증가하였습니다! `,
-                              ),
-                          )
+                            chalk.yellowBright(
+                                `벼락치기 효과로 몰입도가 남은 제출 일 수와 비례해 ${inc} Page 만큼 증가하였습니다! `,
+                            ),
+                        )
                         : 0;
-                } else {
+                } else if (this.dayDmg > 0) {
                     // 몬스터가 없을 때 값 정상화
                     player.minDmg -= this.dayDmg;
                     player.maxDmg -= this.dayDmg;
@@ -164,10 +164,10 @@ class Weapon {
                 this.damage += inc;
                 inc > 0
                     ? logs.push(
-                          chalk.yellowBright(
-                              `필기구의 몰입도가 최대 정신력과 비례해 ${inc} Page 만큼 증가하였습니다! `,
-                          ),
-                      )
+                        chalk.yellowBright(
+                            `필기구의 몰입도가 최대 정신력과 비례해 ${inc} Page 만큼 증가하였습니다! `,
+                        ),
+                    )
                     : 0;
                 break;
             case 3:
@@ -184,7 +184,7 @@ class Weapon {
                 );
                 break;
             default:
-                logs.push('에러');
+                logs.push('무기 타입 에러');
                 logs.push(this.type);
         }
     }

@@ -122,7 +122,7 @@ class Monster {
                 console.log(chalk.redBright(`틀리면 정신력이 절반이 됩니다!`));
                 console.log(chalk.cyanBright(answer));
 
-                const input = readlineSync.question('answer?');
+                const input = readlineSync.question('정답은?');
 
                 if (Number(input) === answer) {
                     logs.push(

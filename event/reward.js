@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import readlineSync from 'readline-sync';
 import figlet from 'figlet';
 import endgame from './gameover.js';
-import Weapons from '../storage/weapons.js';
+import { Weapons } from '../storage/weapons.js';
 
 const rewardEvent = async (stage, player, reward, maxscore) => {
     let logs = [];
@@ -31,7 +31,7 @@ const rewardEvent = async (stage, player, reward, maxscore) => {
 
         console.log(
             chalk.green(
-                figlet.textSync('Reward Time', {
+                figlet.textSync('   Reward Time', {
                     font: 'Standard',
                     horizontalLayout: 'default',
                     verticalLayout: 'default',
@@ -58,7 +58,7 @@ const rewardEvent = async (stage, player, reward, maxscore) => {
             chalk.yellowBright(`\n1. 휴식 2. 필기구 강화 3. 뽑기 4. 포기`),
         );
 
-        const choice = readlineSync.question('Choice? ');
+        const choice = readlineSync.question('뭘 할까? ');
 
         switch (choice) {
             case '1':
@@ -95,7 +95,7 @@ const rewardEvent = async (stage, player, reward, maxscore) => {
         // 애니메이션 효과 딜레이
         await new Promise((resolve) => setTimeout(resolve, 200));
     }
-    const next = readlineSync.question('Next Stage>>');
+    const next = readlineSync.question('다음으로 문제로 이동>>');
 };
 
 const displayReward = function (stage, player, maxscore) {
@@ -108,12 +108,12 @@ const displayReward = function (stage, player, maxscore) {
         chalk.cyanBright(
             `| Stage: ${stage} | 필기구 : ${player.weapon.name} | 등급 : ${player.weapon.rating} |`,
         ) +
-            chalk.yellowBright(
-                `\n|   학생   | 정신력 : ${player.hp}/${player.maxHp} | 몰입도 : ${player.minDmg}~${player.maxDmg} Page | `,
-            ) +
-            chalk.greenBright(
-                `\n           | 수면효과 : ${player.minHeal}~${player.maxHeal} | 이해력 : ${player.lev} | 도달 점수 : ${player.score}/${maxscore} | `,
-            ),
+        chalk.yellowBright(
+            `\n|   학생   | 정신력 : ${player.hp}/${player.maxHp} | 몰입도 : ${player.minDmg}~${player.maxDmg} Page | `,
+        ) +
+        chalk.greenBright(
+            `\n           | 수면효과 : ${player.minHeal}~${player.maxHeal} | 이해력 : ${player.lev} | 도달 점수 : ${player.score}/${maxscore} | `,
+        ),
     );
     console.log(chalk.magentaBright('='.repeat(69)));
 };
@@ -129,7 +129,7 @@ const rest = async function (player, stage, reward, maxscore) {
 
     console.log(
         chalk.green(
-            figlet.textSync('Rest', {
+            figlet.textSync('       Take a Rest', {
                 font: 'Standard',
                 horizontalLayout: 'default',
                 verticalLayout: 'default',
@@ -159,7 +159,7 @@ const rest = async function (player, stage, reward, maxscore) {
         if (results) {
             return results;
         } else if (choice) {
-            const back = readlineSync.question('Back<<');
+            const back = readlineSync.question('돌아가기<<');
             return results;
         }
 
@@ -167,8 +167,8 @@ const rest = async function (player, stage, reward, maxscore) {
 
         logs = [];
 
-        console.log(chalk.yellowBright(`\n1. 수락 2. 취소(뒤로가기)`));
-        choice = readlineSync.question('Choice? ');
+        console.log(chalk.yellowBright(`\n1. 수락 2. 돌아가기`));
+        choice = readlineSync.question('휴식을 취하겠습니까? ');
 
         // 플레이어의 선택에 따라 다음 행동 처리
         logs.push(chalk.yellowBright(`${choice}를 선택하셨습니다.`));
@@ -211,8 +211,8 @@ const upgrade = async function (player, stage) {
     console.clear();
 
     console.log(
-        chalk.green(
-            figlet.textSync('Upgrade', {
+        chalk.red(
+            figlet.textSync('            Upgrade', {
                 font: 'Standard',
                 horizontalLayout: 'default',
                 verticalLayout: 'default',
@@ -260,12 +260,12 @@ const upgrade = async function (player, stage) {
             return results;
         } else if (choice) {
             // 값 확인용 정지
-            const back = readlineSync.question('Back<<');
+            const back = readlineSync.question('돌아가기<<');
             return results;
         }
 
-        console.log(chalk.yellowBright(`\n1. 수락 2. 취소(뒤로가기)`));
-        choice = readlineSync.question('Choice? ');
+        console.log(chalk.yellowBright(`\n1. 수락 2. 돌아가기`));
+        choice = readlineSync.question('강화를 하시겠습니까? ');
 
         // 플레이어의 선택에 따라 다음 행동 처리
         logs.push(chalk.yellowBright(`${choice}를 선택하셨습니다.`));
@@ -325,7 +325,7 @@ const gamble = async function (player, coast, newWpn) {
 
         console.log(
             chalk.yellow(
-                figlet.textSync('Gamble', {
+                figlet.textSync('                    Gamble', {
                     font: 'Standard',
                     horizontalLayout: 'default',
                     verticalLayout: 'default',
@@ -335,7 +335,7 @@ const gamble = async function (player, coast, newWpn) {
 
         console.log(
             chalk.magentaBright(
-                `============================= 뽑기 정보 =============================`,
+                `=================================== 뽑기 정보 ===================================`,
             ),
         );
         console.log(
@@ -353,7 +353,7 @@ const gamble = async function (player, coast, newWpn) {
         );
         console.log(
             chalk.magentaBright(
-                `=========================== 가져온 필기구 ===========================`,
+                `================================= 가져온 필기구 =================================`,
             ),
         );
 
@@ -365,7 +365,7 @@ const gamble = async function (player, coast, newWpn) {
 
         console.log(
             chalk.magentaBright(
-                `============================= 상호 작용 =============================`,
+                `=================================== 상호 작용 ===================================`,
             ),
         );
 
@@ -381,15 +381,15 @@ const gamble = async function (player, coast, newWpn) {
         if (results) {
             return [results, coast, newWpn];
         } else if (choice) {
-            const back = readlineSync.question('Back<<');
+            const back = readlineSync.question('돌아가기<<');
             return [results, coast, newWpn];
         }
 
         console.log(
-            chalk.yellowBright(`\n1. 뽑기 2. 필기구 교체 3. 취소(뒤로가기)`),
+            chalk.yellowBright(`\n1. 뽑기 2. 필기구 교체 3. 돌아가기`),
         );
 
-        choice = readlineSync.question('Choice? ');
+        choice = readlineSync.question('무엇을 할까요? ');
 
         // 플레이어의 선택에 따라 다음 행동 처리
         logs.push(chalk.yellowBright(`${choice}를 선택하셨습니다.`));
@@ -414,63 +414,63 @@ const gamble = async function (player, coast, newWpn) {
                         ratingWeapons = Weapons.filter((a) => a.rating === 'H');
                         newWpn =
                             ratingWeapons[
-                                Math.round(
-                                    Math.random() * (ratingWeapons.length - 1),
-                                )
+                            Math.round(
+                                Math.random() * (ratingWeapons.length - 1),
+                            )
                             ];
                         //S급
                     } else if (prob < 7) {
                         ratingWeapons = Weapons.filter((a) => a.rating === 'S');
                         newWpn =
                             ratingWeapons[
-                                Math.round(
-                                    Math.random() * (ratingWeapons.length - 1),
-                                )
+                            Math.round(
+                                Math.random() * (ratingWeapons.length - 1),
+                            )
                             ];
                         //A급
                     } else if (prob < 15) {
                         ratingWeapons = Weapons.filter((a) => a.rating === 'A');
                         newWpn =
                             ratingWeapons[
-                                Math.round(
-                                    Math.random() * (ratingWeapons.length - 1),
-                                )
+                            Math.round(
+                                Math.random() * (ratingWeapons.length - 1),
+                            )
                             ];
                         //B급
                     } else if (prob < 25) {
                         ratingWeapons = Weapons.filter((a) => a.rating === 'B');
                         newWpn =
                             ratingWeapons[
-                                Math.round(
-                                    Math.random() * (ratingWeapons.length - 1),
-                                )
+                            Math.round(
+                                Math.random() * (ratingWeapons.length - 1),
+                            )
                             ];
                         //C급
                     } else if (prob < 40) {
                         ratingWeapons = Weapons.filter((a) => a.rating === 'C');
                         newWpn =
                             ratingWeapons[
-                                Math.round(
-                                    Math.random() * (ratingWeapons.length - 1),
-                                )
+                            Math.round(
+                                Math.random() * (ratingWeapons.length - 1),
+                            )
                             ];
                         //D급
                     } else if (prob < 65) {
                         ratingWeapons = Weapons.filter((a) => a.rating === 'D');
                         newWpn =
                             ratingWeapons[
-                                Math.round(
-                                    Math.random() * (ratingWeapons.length - 1),
-                                )
+                            Math.round(
+                                Math.random() * (ratingWeapons.length - 1),
+                            )
                             ];
                         //E급
                     } else if (prob <= 100) {
                         ratingWeapons = Weapons.filter((a) => a.rating === 'E');
                         newWpn =
                             ratingWeapons[
-                                Math.round(
-                                    Math.random() * (ratingWeapons.length - 1),
-                                )
+                            Math.round(
+                                Math.random() * (ratingWeapons.length - 1),
+                            )
                             ];
                     }
                     //뽑기 비용 지불
