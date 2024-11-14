@@ -1,40 +1,39 @@
 import chalk from 'chalk';
 import readlineSync from 'readline-sync';
 
-class Monster {
-    constructor(stage) {
+class bossMonster {
+    constructor() {
         const typeRand = Math.floor(Math.random() * 100);
-        // 문제집 과목 설정
         if (typeRand < 5) {
             this.type = '철학';
-            this.value = 10;
+            this.value = 45;
         } else if (typeRand < 20) {
             this.type = '수학';
-            this.value = 7;
+            this.value = 30;
         } else if (typeRand < 55) {
             this.type = '영어';
-            this.value = 5;
+            this.value = 20;
         } else if (typeRand < 80) {
             this.type = '국어';
-            this.value = 3;
+            this.value = 15;
         } else {
             this.type = '체육';
-            this.value = 1;
+            this.value = 10;
         }
         // 남은 제출 기한
-        this.maxDay = (this.value + stage) * 2 + 10;
+        this.maxDay = (this.value + 10) * 3 + 20;
         this.day = this.maxDay;
         // 페이지 수
         this.maxHp =
-            Math.round(Math.random() * (this.value + stage) * 6) +
-            (this.value + stage * 2) * 10;
+            Math.round(Math.random() * (this.value + 10) * 20) +
+            (this.value + 10) * 25;
         this.hp = this.maxHp;
         // 학습 피로도 day가 지날수록 강해짐 + 과목에따라 달라짐
-        this.minDmg = Math.round(this.value + stage * 2) * 2 + 5;
-        this.maxDmg = Math.round(this.value + stage * 2) * 2 + 10;
+        this.minDmg = Math.round(this.value + 20) * 2 + 5;
+        this.maxDmg = Math.round(this.value + 20) * 3 + 10;
         // 망각 Page 수
-        this.minHeal = 5;
-        this.maxHeal = 20;
+        this.minHeal = 15;
+        this.maxHeal = 40;
         this.shield = false;
     }
 
@@ -50,9 +49,9 @@ class Monster {
         const monsterAct = Math.round(Math.random() * 100);
         if (monsterAct <= 30) {
             damaged > 0 ? this.heal(logs) : 0;
-        } else if (monsterAct <= 75) {
+        } else if (monsterAct <= 80) {
             damaged > 0 ? this.attack(player, logs) : 0;
-        } else if (monsterAct <= 90) {
+        } else if (monsterAct <= 95) {
             this.protect(logs);
         } else if (monsterAct <= 100) {
             damaged > 0 ? this.skills(player, logs) : 0;
@@ -94,7 +93,7 @@ class Monster {
     }
 
     skills(player, logs) {
-        logs.push(chalk.cyanBright(`책을 자세히 읽습니다!`));
+        logs.push(chalk.cyanBright(`시험지를 자세히 읽습니다!`));
         switch (this.type) {
             case '철학':
                 logs.push(
@@ -108,10 +107,10 @@ class Monster {
                 player.damaged(Math.floor(player.hp / 2), logs);
                 break;
             case '수학':
-                const a = Math.round(Math.random() * 1000);
-                const b = Math.round(Math.random() * 1000);
-                const c = Math.round(Math.random() * 100);
-                const d = Math.round(Math.random() * 100);
+                const a = Math.round(Math.random() * 500);
+                const b = Math.round(Math.random() * 500);
+                const c = Math.round(Math.random() * 50);
+                const d = Math.round(Math.random() * 50);
                 const answer = a * d + b * c;
                 const question = `${a} X ${d} + ${b} X ${c}`;
                 console.log(
@@ -120,7 +119,6 @@ class Monster {
                 console.log(chalk.cyanBright(question));
                 console.log(chalk.cyanBright(`정답이 무엇일까요..?`));
                 console.log(chalk.redBright(`틀리면 정신력이 절반이 됩니다!`));
-                console.log(chalk.cyanBright(answer));
 
                 const input = readlineSync.question('answer?');
 
@@ -163,7 +161,9 @@ class Monster {
                 player.damaged(Math.floor(player.hp / 4), logs);
                 break;
             case '체육':
-                logs.push(chalk.greenBright(`책을 읽으며 운동을 하였습니다!`));
+                logs.push(
+                    chalk.greenBright(`문제를 읽으며 운동을 하였습니다!`),
+                );
                 logs.push(
                     chalk.greenBright(
                         `불굴의 의지로 최대 정신력이 ${this.hp}(Page 수)만큼 증가합니다!`,
@@ -179,7 +179,7 @@ class Monster {
 
     //집중 실패
     protect(logs) {
-        logs.push(chalk.redBright(`책이 두꺼워 보입니다..`));
+        logs.push(chalk.redBright(`문제지가 어려워 보입니다..`));
         this.shield = true;
     }
 
@@ -193,20 +193,20 @@ class Monster {
             this.hp -= value[0];
             logs.push(
                 chalk.greenBright(
-                    `문제집을 ${value[0]} Page 만큼 풀었습니다! `,
+                    `시험지를 ${value[0]} Page 만큼 풀었습니다! `,
                 ),
             );
             if (value[1] > 0) {
                 this.hp -= value[1];
                 logs.push(
                     chalk.greenBright(
-                        `추가로 문제집을 ${value[1]} Page 만큼 풀었습니다! `,
+                        `추가로 시험지를 ${value[1]} Page 만큼 풀었습니다! `,
                     ),
                 );
             }
         } else {
             this.hp = 0;
-            logs.push(chalk.greenBright('문제집을 전부 풀었습니다!'));
+            logs.push(chalk.greenBright('시험을 완벽하게 마쳤습니다!'));
         }
     }
 
@@ -225,7 +225,7 @@ class Monster {
         this.maxHeal = this.maxHeal + Math.round(this.maxDay / this.day);
         logs.push(
             chalk.redBright(
-                `문제집을 점점 풀기 싫어집니다.. ${mnDmg}~${mxDmg}만큼 피로도 증가`,
+                `시험지를 점점 풀기 싫어집니다.. ${mnDmg}~${mxDmg}만큼 피로도 증가`,
             ),
         );
 
@@ -236,4 +236,4 @@ class Monster {
     }
 }
 
-export default Monster;
+export default bossMonster;

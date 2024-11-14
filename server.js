@@ -35,10 +35,9 @@ function displayLobby() {
     console.log();
 
     // 옵션들
-    console.log(chalk.blue('1.') + chalk.white(' 새로운 게임 시작'));
-    console.log(chalk.blue('2.') + chalk.white(' 업적 확인하기'));
-    console.log(chalk.blue('3.') + chalk.white(' 옵션'));
-    console.log(chalk.blue('4.') + chalk.white(' 종료'));
+    console.log(chalk.yellowBright('1.') + chalk.white(' 새로운 게임 시작'));
+    console.log(chalk.yellowBright('2.') + chalk.white(' 점수 랭킹 확인하기'));
+    console.log(chalk.yellowBright('3.') + chalk.white(' 종료'));
 
     // 하단 경계선
     console.log(line);
@@ -53,7 +52,7 @@ function handleUserInput() {
 
     switch (choice) {
         case '1':
-            console.log(chalk.green('게임을 시작합니다.'));
+            console.log(chalk.yellowBright('게임을 시작합니다.'));
             // 여기에서 새로운 게임 시작 로직을 구현
             startGame();
             break;
@@ -63,19 +62,16 @@ function handleUserInput() {
             handleUserInput();
             break;
         case '3':
-            console.log(chalk.blue('구현 준비중입니다.. 게임을 시작하세요'));
+            console.log(chalk.redBright('게임이 종료됩니다!'));
             // 옵션 메뉴 로직을 구현
             handleUserInput();
-
-            break;
-        case '4':
-            console.log(chalk.red('게임을 종료합니다.'));
-            // 게임 종료 로직을 구현
             process.exit(0); // 게임 종료
-            break;
         default:
-            console.log(chalk.red('올바른 선택을 하세요.'));
-            handleUserInput(); // 유효하지 않은 입력일 경우 다시 입력 받음
+            logs.push(
+                chalk.yellowBright(`예상치 못한 입력입니다! 다시 입력해주세요`),
+            );
+            console.clear();
+            handleUserInput();
     }
 }
 

@@ -3,9 +3,9 @@ import chalk from 'chalk';
 class Weapon {
     constructor(name, damage, heal, rating, type, plus, prob, dayDmg) {
         //강화된 횟수
-        this.plus = plus ? plus : 0;
+        this.plus = plus || 0;
         //강화 성공 확률
-        this.plusProb = prob ? prob : 100;
+        this.prob = prob || 100;
         // 이름
         this.name = name;
         //기본 데미지
@@ -16,8 +16,25 @@ class Weapon {
         this.rating = rating;
         //무기 스탯 영향 0: 이해력 / 1: d-day / 2: 최대 정신력 / 3: -이해력
         this.type = type;
-        // 게임당 누적 d-day 값
-        this.dayDmg = dayDmg ? dayDmg : 0;
+        // 스테이지당 누적 d-day 값
+        this.dayDmg = dayDmg || 0;
+        // 기본 강화 비용
+        this.upgradeCoast = 2;
+        //[고]등급 무기는 기본 강화 비용 증가
+        switch (this.rating) {
+            case 'B':
+                this.upgradeCoast = 4;
+                break;
+            case 'A':
+                this.upgradeCoast = 6;
+                break;
+            case 'S':
+                this.upgradeCoast = 8;
+                break;
+            case 'H':
+                this.upgradeCoast = 10;
+                break;
+        }
     }
     //강화 후 무기 확인 및 적용 값
     plusWeapon(stage) {
@@ -44,23 +61,23 @@ class Weapon {
                 prob = Math.round(this.prob * 0.7);
                 break;
             case 'C':
-                dmg = stage * 4 + 15;
-                heal = stage * 3 + 10;
+                dmg = stage * 4 + 7;
+                heal = stage * 3 + 8;
                 prob = Math.round(this.prob * 0.75);
                 break;
             case 'B':
-                dmg = stage * 4 + 35;
-                heal = stage * 4 + 20;
+                dmg = stage * 5 + 9;
+                heal = stage * 5 + 9;
                 prob = Math.round(this.prob * 0.6);
                 break;
             case 'A':
-                dmg = stage * 5 + 40;
-                heal = stage * 5 + 30;
+                dmg = stage * 5 + 12;
+                heal = stage * 5 + 10;
                 prob = Math.round(this.prob * 0.4);
                 break;
             case 'S':
-                dmg = stage * 8 + 70;
-                heal = stage * 8 + 70;
+                dmg = stage * 8 + 15;
+                heal = stage * 8 + 15;
                 prob = Math.round(this.prob * 0.2);
                 break;
             case 'H':
@@ -75,28 +92,30 @@ class Weapon {
             this.heal + heal,
             this.rating,
             this.type,
-            this.plus++,
+            this.plus + 1,
             prob,
             this.dayDmg,
         );
     }
     //스탯에 비례해 데미지 증가
-    damageUpdate(player, monster, reward, logs) {
+    damageUpdate(player, monster, logs) {
         let inc = 0;
         switch (this.type) {
             case 0:
                 // 이해도와 강화 수치에 따라 증가폭 조정
-                inc = Math.round(reward.levUp * this.plus * 0.5);
+                inc =
+                    Math.round(player.lev * this.plus * 0.8) +
+                    this.upgradeCoast;
                 // 실시간 반영
                 player.minDmg += inc;
                 player.maxDmg += inc;
                 this.damage += inc;
                 inc > 0
                     ? logs.push(
-                        chalk.greenBright(
-                            `필기구의 몰입도가 이해력과 비례해 ${inc} Page 만큼 증가하였습니다! `,
-                        ),
-                    )
+                          chalk.yellowBright(
+                              `필기구의 몰입도가 이해력과 비례해 ${inc} Page 만큼 증가하였습니다! `,
+                          ),
+                      )
                     : 0;
                 break;
             case 1:
@@ -117,10 +136,10 @@ class Weapon {
                     this.dayDmg += inc;
                     inc > 0
                         ? logs.push(
-                            chalk.greenBright(
-                                `벼락치기 효과로 몰입도가 남은 제출 일 수와 비례해 ${inc} Page 만큼 증가하였습니다! `,
-                            ),
-                        )
+                              chalk.yellowBright(
+                                  `벼락치기 효과로 몰입도가 남은 제출 일 수와 비례해 ${inc} Page 만큼 증가하였습니다! `,
+                              ),
+                          )
                         : 0;
                 } else {
                     // 몬스터가 없을 때 값 정상화
@@ -138,22 +157,22 @@ class Weapon {
                 break;
             case 2:
                 // 최대 정신력과 강화 수치에 따라 증가폭 조정
-                inc = Math.round((player.maxHp * (this.plus * 3)) / 20);
+                inc = Math.round(player.maxHp * this.plus * 0.8);
                 // 실시간 반영
                 player.minDmg += inc;
                 player.maxDmg += inc;
                 this.damage += inc;
                 inc > 0
                     ? logs.push(
-                        chalk.greenBright(
-                            `필기구의 몰입도가 최대 정신력과 비례해 ${inc} Page 만큼 증가하였습니다! `,
-                        ),
-                    )
+                          chalk.yellowBright(
+                              `필기구의 몰입도가 최대 정신력과 비례해 ${inc} Page 만큼 증가하였습니다! `,
+                          ),
+                      )
                     : 0;
                 break;
             case 3:
-                // -이해도 강화 수치에 따라 증가폭 조정
-                inc = Math.round((this.plus * 10) / reward.levUp);
+                // -이해도와 강화 수치에 따라 증가폭 조정
+                inc = Math.round((this.plus * 7) / player.lev) * 2;
                 // 실시간 반영
                 player.minDmg += inc;
                 player.maxDmg += inc;
