@@ -21,7 +21,7 @@ export default async function startGame() {
     while (!end) {
         let monster;
         //9스테이지 넘어갈 시, 몬스터가 보스몬스터들로 변경
-        monster = (stage > 9) ? new bossMonster() : new monster(stage);
+        monster = (stage > 9) ? new bossMonster() : new Monster(stage);
         //전투 결과 확인용
         status = await battle(stage, player, monster, maxscore);
         // 도주 시
