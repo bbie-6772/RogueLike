@@ -11,18 +11,10 @@ import { update } from './storage/weapons.js';
 import rankList from './event/ranking.js';
 
 // 로비 화면을 출력하는 함수
-function displayLobby() {
+const displayLobby = function () {
     console.clear();
     // 타이틀 텍스트
-    console.log(
-        chalk.cyan(
-            figlet.textSync('Lets Take A Test', {
-                font: 'Standard',
-                horizontalLayout: 'default',
-                verticalLayout: 'default',
-            }),
-        ),
-    );
+    console.log(chalk.cyan(figlet.textSync('Lets Take A Test', {font: 'Standard'})));
     // 상단 경계선
     const line = chalk.magentaBright('='.repeat(69));
     console.log(line);
@@ -42,7 +34,7 @@ function displayLobby() {
 }
 
 // 유저 입력을 받아 처리하는 함수
-async function handleUserInput() {
+const handleUserInput = async function () {
     const choice = readlineSync.question('선택해주세요! ');
 
     switch (choice) {
@@ -68,9 +60,8 @@ async function handleUserInput() {
             handleUserInput();
     }
 }
-
 // 게임 시작 함수
-async function start() {
+const start = async function () {
     // 한글 인식 인코딩 적용 
     execSync('chcp 65001');
     // 로비 화면 출력
@@ -80,7 +71,6 @@ async function start() {
     // 플레이어 입력 받기
     handleUserInput();
 }
-
 // 게임 실행
 start();
 
