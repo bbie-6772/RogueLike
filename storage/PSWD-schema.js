@@ -14,4 +14,4 @@ const PSWDSchema = new mongoose.Schema({
     },
 });
 
-export default mongoose.model('passwordCk', PSWDSchema);
+export default mongoose.model('password', PSWDSchema);
