@@ -33,12 +33,12 @@ const endgame = async (stage, player) => {
         );
         logs.push(
             chalk.yellowBright(
-                `|   최대 이해력 : ${String(player.maxLev).padStart(3, ' ')}  |`,
+                `|   최대 이해력 : ${String(player.maxLev).padStart(4, ' ')} |`,
             ),
         );
         logs.push(
             chalk.yellowBright(
-                `|  푼 문제집 수 : ${String(player.kills).padStart(3, ' ')}  |`,
+                `|  푼 문제집 수 : ${String(player.kills).padStart(4, ' ')} |`,
             ),
         );
         logs.push(

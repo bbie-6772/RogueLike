@@ -10,18 +10,10 @@ const rewardEvent = async (stage, player, reward, maxscore) => {
     let coast = stage * 2;
     let gambleWeapon = {};
 
-    logs.push(
-        chalk.magentaBright(
-            `============================= 보상 정보 =============================`,
-        ),
-    );
-    logs.push(
-        chalk.cyanBright(
-            `| 기본보상 | 회복 : ${reward.heal} | 이해력 증가 : ${reward.levUp} | 추가 점수 : ${reward.score} |`,
-        ),
-    );
-    1;
-
+    //보상 출력
+    logs.push(chalk.magentaBright('============================= 보상 정보 ============================='));
+    logs.push(chalk.cyanBright(`| 기본보상 | 회복 : ${reward.heal} | 이해력 증가 : ${reward.levUp} | 추가 점수 : ${reward.score} |`));
+    //보상 적용
     player.heal(reward.heal, logs);
     player.levelSet(reward.levUp, logs);
     player.score += reward.score;

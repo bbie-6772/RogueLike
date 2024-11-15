@@ -38,7 +38,7 @@ export default async function startGame() {
             stage++;
             //점수가 정해진만큼을 넘었을 시, 엔딩
             end = player.score > maxscore;
-        // 죽었을 시
+        // 죽음,그만두기
         } else {
             //죽으면 게임오버 이벤트 이동
             return await endgame(stage, player);
