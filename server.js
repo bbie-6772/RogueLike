@@ -10,7 +10,6 @@ import { execSync } from 'child_process';
 import { update } from './storage/weapons.js';
 import rankList from './event/ranking.js';
 
-
 // 로비 화면을 출력하는 함수
 function displayLobby() {
     console.clear();

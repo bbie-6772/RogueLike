@@ -1,4 +1,4 @@
-import mongoose from "mongoose"
+import mongoose from 'mongoose';
 
 const rank = new mongoose.Schema({
     // // 이름
@@ -10,7 +10,7 @@ const rank = new mongoose.Schema({
     score: {
         type: Number,
         required: true,
-    }
-})
+    },
+});
 
 export default mongoose.model('ranking', rank);

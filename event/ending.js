@@ -8,7 +8,7 @@ const win = async (player) => {
     let logs = [];
     let exit = false;
 
-    ranking
+    ranking;
 
     while (!exit) {
         console.clear();
@@ -67,15 +67,25 @@ const win = async (player) => {
             await new Promise((resolve) => setTimeout(resolve, 300));
         }
 
-        console.log(chalk.yellowBright(`\n1. 점수 기록 2.메인 화면 3. 현타와서 종료`));
+        console.log(
+            chalk.yellowBright(`\n1. 점수 기록 2.메인 화면 3. 현타와서 종료`),
+        );
         const choice = readlineSync.question('당신의 행동은? ');
 
         switch (choice) {
             case '1':
-                console.log(chalk.yellowBright('점수를 기록하기 위해 이름을 입력해주세요!'));
+                console.log(
+                    chalk.yellowBright(
+                        '점수를 기록하기 위해 이름을 입력해주세요!',
+                    ),
+                );
                 //이름 받아서 저장
                 const name = readlineSync.question('이름 : ');
-                console.log(chalk.cyanBright(`저장될 값 / 이름 : ${name} 점수 : ${player.score}`));
+                console.log(
+                    chalk.cyanBright(
+                        `저장될 값 / 이름 : ${name} 점수 : ${player.score}`,
+                    ),
+                );
                 //저장할 값 생성
                 const newScore = new ranking({
                     name: name,

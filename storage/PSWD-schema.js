@@ -1,4 +1,4 @@
-import mongoose from "mongoose"
+import mongoose from 'mongoose';
 
 const PSWDSchema = new mongoose.Schema({
     // // 이름
@@ -11,7 +11,7 @@ const PSWDSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
-    }
-})
+    },
+});
 
 export default mongoose.model('passwordCk', PSWDSchema);
