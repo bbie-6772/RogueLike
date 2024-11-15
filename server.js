@@ -12,7 +12,6 @@ import { update } from './storage/weapons.js';
 // 로비 화면을 출력하는 함수
 function displayLobby() {
     console.clear();
-
     // 타이틀 텍스트
     console.log(
         chalk.cyan(
