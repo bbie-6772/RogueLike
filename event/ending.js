@@ -90,7 +90,8 @@ const win = async (player) => {
                         await update();
                     })
                     .catch((err) => console.log(chalk.redBright('저장실패!')));
-                continue;
+                readlineSync.question('메인화면으로>>');
+                return start();
             case '2':
                 console.log(chalk.yellowBright('메인화면으로 이동합니다!'));
                 return start();
