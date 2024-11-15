@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import figlet from 'figlet';
 import readlineSync from 'readline-sync';
 import start from '../server.js';
-import passwordCk from '../storage/PSWD-schema';
+import passwordCk from '../storage/PSWD-schema.js';
 import { Weapons, update } from '../storage/weapons.js';
 import WeaponSch from '../storage/weapon-schemas.js';
 
