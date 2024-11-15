@@ -22,8 +22,8 @@ class bossMonster {
             this.type = '체육';
             this.value = 10;
         }
-        // 남은 공부 기한
-        this.maxDay = (this.value + 10) * 3 + 20;
+        // 시험시간
+        this.maxDay = 60;
         this.day = this.maxDay;
         // 페이지 수 (체력)
         this.maxHp =
@@ -178,7 +178,7 @@ class bossMonster {
     //하루가 지날 때마다 강해지는 매커니즘
     Day(player, logs) {
         // 학습 피로도 day가 지날수록 강해짐
-        logs.push(chalk.redBright('10분이 지났습니다.'));
+        logs.push(chalk.redBright('시험시간 1분이 지났습니다.'));
         this.day--;
         //랜덤 + 증가율 계산
         const mnDmg =
