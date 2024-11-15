@@ -1,20 +1,14 @@
 import chalk from 'chalk';
 import figlet from 'figlet';
 import readlineSync from 'readline-sync';
-import mongoose from 'mongoose';
 import start from '../server.js';
-import PSWDSchema from '../storage/PSWD-schema';
-import Weapon from '../class/weapon.js';
+import passwordCk from '../storage/PSWD-schema';
 import { Weapons, update } from '../storage/weapons.js';
 import WeaponSch from '../storage/weapon-schemas.js';
 
 const admin = async (password) => {
     let logs = [];
     let exit = false;
-    const passwordCk = await mongoose
-        .model('password', PSWDSchema)
-        .findOne({ name: 'admin' })
-        .exec();
 
     //비밀 번호 확인
     if (passwordCk.password !== password) {
