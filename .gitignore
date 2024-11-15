@@ -10,6 +10,7 @@ lerna-debug.log*
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
+
 # Runtime data
 pids
 *.pid
@@ -123,4 +124,3 @@ dist
 # 비밀문서
 기획.txt
 secret.js
-.prettierrc.json
