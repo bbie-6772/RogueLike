@@ -30,7 +30,7 @@ const battle = async (stage, player, monster, maxscore) => {
             const next = readlineSync.question('다음 문제집>>');
             return 'run';
         // 플레이어 사망 시
-        } else if (player.hp < 0){
+        } else if (player.hp === 0){
             const next = readlineSync.question('게임오버>>');
             return false;
         }
@@ -44,7 +44,7 @@ const battle = async (stage, player, monster, maxscore) => {
 };
 
 function displayStatus(stage, player, monster, maxscore) {
-    console.log(chalk.magentaBright(`\n============================= 현재 상태 =============================`));
+    console.log(chalk.magentaBright('\n============================= 현재 상태 ============================='));
     // 보스 출현 라운드 부터
     if (stage > 9) {
         console.log(
@@ -76,7 +76,7 @@ function displayStatus(stage, player, monster, maxscore) {
 
 //선택지 함수
 function inputSwitch(monster, player, logs) {
-    console.log(chalk.yellowBright(`\n1. 문제풀기(공격) 2. 수면(회복) 3. 휴식(방어) 4. 복습(버프) 5. 다음 문제집(도망) 6. 그만하기`));
+    console.log(chalk.yellowBright('\n1. 문제풀기(공격) 2. 수면(회복) 3. 휴식(방어) 4. 복습(버프) 5. 다음 문제집(도망) 6. 그만하기'));
     const choice = readlineSync.question('당신의 행동은?');
     // 플레이어의 선택에 따라 다음 행동 처리
     logs.push(chalk.yellowBright(`${choice}번을 선택하셨습니다.`));
@@ -86,8 +86,8 @@ function inputSwitch(monster, player, logs) {
             const Dmg = player.attack(monster, logs);
             //몬스터 행동
             monster.action(player, logs, Dmg);
-            //몬스터에게 피해
-            monster.damaged(Dmg, logs);
+            //몬스터에게 피해 (플레이어가 죽지 않았을 시에)
+            player.hp > 0 ? monster.damaged(Dmg, logs) : 0 ;
             //둘 중 하나라도 죽으면 하루가 지나지 않음
             monster.hp * player.hp > 0 ? monster.Day(player, logs) : 0;
             break;
@@ -123,8 +123,9 @@ function inputSwitch(monster, player, logs) {
             // 선택 로그 삭제
             logs.pop();
             // 유효하지 않은 입력일 경우 다시 입력 받음
-            return inputSwitch(monster, player, logs); 
+            return inputSwitch(monster, player, logs);
     }
+    return [false, false]
 }
 
 export default battle;
