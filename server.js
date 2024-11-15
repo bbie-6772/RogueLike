@@ -23,32 +23,22 @@ function displayLobby() {
             }),
         ),
     );
-
     // 상단 경계선
     const line = chalk.magentaBright('='.repeat(69));
     console.log(line);
-
     // 게임 이름
-    console.log(
-        chalk.yellowBright.bold('시험을 보자! 게임에 오신것을 환영합니다!'),
-    );
-
+    console.log(chalk.yellowBright.bold('시험을 보자! 게임에 오신것을 환영합니다!'));
     // 설명 텍스트
     console.log(chalk.green('메뉴를 선택해주세요.'));
-    console.log();
-
     // 옵션들
     console.log(chalk.yellowBright('1.') + chalk.white(' 새로운 게임 시작'));
     console.log(chalk.yellowBright('2.') + chalk.white(' 랭킹 확인하기'));
     console.log(chalk.yellowBright('3.') + chalk.white(' 관리자 모드'));
     console.log(chalk.yellowBright('4.') + chalk.white(' 종료'));
-
     // 하단 경계선
     console.log(line);
-
     // 하단 설명
     console.log(chalk.gray('1-4 사이의 수를 입력한 뒤 엔터를 누르세요.'));
-    // 한글 인코딩 설정
 }
 
 // 유저 입력을 받아 처리하는 함수
@@ -58,53 +48,36 @@ async function handleUserInput() {
     switch (choice) {
         case '1':
             console.log(chalk.yellowBright('게임을 시작합니다.'));
-            // 여기에서 새로운 게임 시작 로직을 구현
+            // 게임 시작
             return startGame();
         case '2':
             console.log(chalk.yellow('랭킹으로 이동합니다'));
-            // 업적 확인하기 로직을 구현
+            // 랭킹 확인
             rankList();
             break;
         case '3':
-            // 무기 정보 확인 및 추가 및 삭제
-            console.log(
-                chalk.redBright(
-                    '관리자 모드 진입을 위해 비밀번호를 입력해주세요',
-                ),
-            );
+            // 관리자 모드
+            console.log(chalk.redBright('관리자 모드 진입을 위해 비밀번호를 입력해주세요'));
             admin(readlineSync.question('비밀번호:'));
             break;
         case '4':
-            console.log(chalk.redBright('게임이 종료됩니다!'));
             // 게임 종료
             process.exit(0);
-        // case '5':
-        //     Weapons.forEach(async (val) => {
-        //         const newWeapon = new WeaponSch({
-        //             name: val.name,
-        //             damage: val.damage,
-        //             heal: val.heal,
-        //             type: val.type,
-        //             rating: val.rating,
-        //         })
-        //         await newWeapon.save()
-        //     })
-        //      break;
         default:
-            console.log(
-                chalk.yellowBright(`예상치 못한 입력입니다! 다시 입력해주세요`),
-            );
+            console.log(chalk.yellowBright('예상치 못한 입력입니다! 다시 입력해주세요'));
             handleUserInput();
     }
 }
 
 // 게임 시작 함수
 async function start() {
-    // 한글 인식 인코딩
+    // 한글 인식 인코딩 적용 
     execSync('chcp 65001');
+    // 로비 화면 출력
     displayLobby();
     //무기 값 업데이트
     await update();
+    // 플레이어 입력 받기
     handleUserInput();
 }
 
