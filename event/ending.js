@@ -85,7 +85,7 @@ const win = async (player) => {
                 await newScore
                     .save()
                     .then(async () => {
-                        logs.push(chalk.greenBright('실행되었습니다!'));
+                        logs.push(chalk.greenBright('저장되었습니다!'));
                         // 올린 값 업데이트 해주기
                         await update();
                     })

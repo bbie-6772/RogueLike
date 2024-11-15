@@ -8,6 +8,8 @@ import startGame from './game.js';
 import admin from './event/admin.js';
 import { execSync } from 'child_process';
 import { update } from './storage/weapons.js';
+import rankList from './event/ranking.js';
+
 
 // 로비 화면을 출력하는 함수
 function displayLobby() {
@@ -38,7 +40,7 @@ function displayLobby() {
 
     // 옵션들
     console.log(chalk.yellowBright('1.') + chalk.white(' 새로운 게임 시작'));
-    console.log(chalk.yellowBright('2.') + chalk.white(' 점수 랭킹 확인하기'));
+    console.log(chalk.yellowBright('2.') + chalk.white(' 랭킹 확인하기'));
     console.log(chalk.yellowBright('3.') + chalk.white(' 관리자 모드'));
     console.log(chalk.yellowBright('4.') + chalk.white(' 종료'));
 
@@ -60,9 +62,9 @@ async function handleUserInput() {
             // 여기에서 새로운 게임 시작 로직을 구현
             return startGame();
         case '2':
-            console.log(chalk.yellow('구현 준비중입니다.. 게임을 시작하세요'));
+            console.log(chalk.yellow('랭킹으로 이동합니다'));
             // 업적 확인하기 로직을 구현
-            handleUserInput();
+            rankList();
             break;
         case '3':
             // 무기 정보 확인 및 추가 및 삭제
