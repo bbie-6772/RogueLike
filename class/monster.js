@@ -23,7 +23,7 @@ class Monster {
             this.value = 1;
         }
         // 남은 공부 기한
-        this.maxDay = (this.value + stage) * 2 + 10;
+        this.maxDay = (this.value + stage) * 3 + 20;
         this.day = this.maxDay;
         // 페이지 수 (체력)
         this.maxHp =
