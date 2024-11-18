@@ -74,14 +74,18 @@ class Monster {
         // 피가 최대체력일 때
         if (this.hp === this.maxHp) {
             logs.push(chalk.greenBright('아무 일도 없었습니다!'));
-        // 피가 최대로 차게 될 떄
+            // 피가 최대로 차게 될 떄
         } else if (this.hp + monsterHeal >= this.maxHp) {
             logs.push(chalk.redBright('모든 문제를 까먹었습니다!'));
             this.hp = this.maxHp;
-        // 일반 회복
+            // 일반 회복
         } else {
             this.hp += monsterHeal;
-            logs.push(chalk.redBright(`${monsterHeal} Page 분량의 문제들을 까먹었습니다..`));
+            logs.push(
+                chalk.redBright(
+                    `${monsterHeal} Page 분량의 문제들을 까먹었습니다..`
+                )
+            );
         }
     }
     // 피로도 적용(공격)
@@ -91,7 +95,7 @@ class Monster {
             Math.floor(Math.random() * (this.maxDmg - this.minDmg)) +
             this.minDmg;
         //player damaged 메서드 이용
-        player.damaged(monsterDmg, logs)
+        player.damaged(monsterDmg, logs);
     }
     // 과목별 특수 스킬
     skills(player, logs) {
@@ -99,8 +103,14 @@ class Monster {
         // 과목별 분리
         switch (this.type) {
             case '철학':
-                logs.push(chalk.cyanBright('당신은 문제를 읽어가며 인생의 목표에 대해 생각하게되었습니다..'));
-                logs.push(chalk.greenBright('이 문제는 왜 풀고 있는 걸까요..?'));
+                logs.push(
+                    chalk.cyanBright(
+                        '당신은 문제를 읽어가며 인생의 목표에 대해 생각하게되었습니다..'
+                    )
+                );
+                logs.push(
+                    chalk.greenBright('이 문제는 왜 풀고 있는 걸까요..?')
+                );
                 logs.push(chalk.magentaBright('머리가 아파집니다..'));
                 logs.push(chalk.redBright('정신력이 절반이 됩니다!'));
                 player.damaged(Math.floor(player.hp / 2), logs);
@@ -113,7 +123,7 @@ class Monster {
                 const answer = a * d + b * c;
                 const question = `${a} X ${d} + ${b} X ${c}`;
                 console.log(
-                    chalk.cyanBright('뭔가 신기한 수학문제가 눈에 들어옵니다!'),
+                    chalk.cyanBright('뭔가 신기한 수학문제가 눈에 들어옵니다!')
                 );
                 console.log(chalk.cyanBright(question));
                 console.log(chalk.cyanBright('정답이 무엇일까요..?'));
@@ -121,30 +131,50 @@ class Monster {
                 console.log(chalk.cyanBright(answer));
                 const input = readlineSync.question('정답은?');
                 if (Number(input) === answer) {
-                    logs.push(chalk.greenBright('문제를 완벽하게 풀어 기분이 좋아집니다!'));
+                    logs.push(
+                        chalk.greenBright(
+                            '문제를 완벽하게 풀어 기분이 좋아집니다!'
+                        )
+                    );
                     logs.push(chalk.greenBright('최대 정신력의 25% 회복'));
                     player.heal(Math.round(player.maxHp / 4), logs);
                 } else {
-                    logs.push(chalk.redBright('문제를 이해하지 못한 것 같습니다!'));
+                    logs.push(
+                        chalk.redBright('문제를 이해하지 못한 것 같습니다!')
+                    );
                     logs.push(chalk.redBright('정신이 까마득해집니다..'));
                     logs.push(chalk.redBright('정신력이 절반이 됩니다!'));
                     player.damaged(Math.floor(player.hp / 2), logs);
                 }
                 break;
             case '영어':
-                logs.push(chalk.greenBright('왜 외국어를 이렇게 열심히 배워야 할까요..?'));
+                logs.push(
+                    chalk.greenBright(
+                        '왜 외국어를 이렇게 열심히 배워야 할까요..?'
+                    )
+                );
                 logs.push(chalk.greenBright("I can't understand.."));
-                logs.push(chalk.greenBright('상황을 받아들이고 문제를 추가로 풀기 시작합니다.'));
+                logs.push(
+                    chalk.greenBright(
+                        '상황을 받아들이고 문제를 추가로 풀기 시작합니다.'
+                    )
+                );
                 this.damaged(player.attack(this, logs), logs);
                 break;
             case '국어':
-                logs.push(chalk.redBright('시를 읽으며 주화 입마에 빠집니다..'));
+                logs.push(
+                    chalk.redBright('시를 읽으며 주화 입마에 빠집니다..')
+                );
                 logs.push(chalk.redBright('정신력의 1/4이 소모됩니다!'));
                 player.damaged(Math.floor(player.hp / 4), logs);
                 break;
             case '체육':
                 logs.push(chalk.greenBright('책을 읽으며 운동을 하였습니다!'));
-                logs.push(chalk.greenBright(`불굴의 의지로 최대 정신력이 ${this.hp}(Page 수)만큼 증가합니다!`));
+                logs.push(
+                    chalk.greenBright(
+                        `불굴의 의지로 최대 정신력이 ${this.hp}(Page 수)만큼 증가합니다!`
+                    )
+                );
                 player.maxHpSet(this.hp, logs);
                 break;
             default:
@@ -163,16 +193,24 @@ class Monster {
         if (this.shield) {
             logs.push(chalk.redBright('문제를 풀지 못했습니다!'));
             this.shield = false;
-        // 공격 받고 죽었을 때
+            // 공격 받고 죽었을 때
         } else if (this.hp - (value[0] + value[1]) < 0) {
             this.hp = 0;
             logs.push(chalk.greenBright('문제집을 전부 풀었습니다!'));
-        // 공격 당했을 때
+            // 공격 당했을 때
         } else {
             this.hp -= value[0] + value[1];
-            logs.push(chalk.greenBright(`문제집을 ${value[0]} Page 만큼 풀었습니다!`));
+            logs.push(
+                chalk.greenBright(`문제집을 ${value[0]} Page 만큼 풀었습니다!`)
+            );
             //버프로 인한 추가 데미지 출력
-            (value[1] > 0) ? logs.push(chalk.greenBright(`추가로 문제집을 ${value[1]} Page 만큼 풀었습니다!`)) : 0;
+            value[1] > 0
+                ? logs.push(
+                      chalk.greenBright(
+                          `추가로 문제집을 ${value[1]} Page 만큼 풀었습니다!`
+                      )
+                  )
+                : 0;
         }
     }
     //하루가 지날 때마다 강해지는 매커니즘
@@ -192,9 +230,15 @@ class Monster {
         this.minHeal = this.minHeal + Math.round(this.maxDay / this.day);
         this.maxHeal = this.maxHeal + Math.round(this.maxDay / this.day);
         // 데미지 증가율 출력
-        logs.push(chalk.redBright(`문제집을 점점 풀기 싫어집니다.. 피로도 ${mnDmg}~${mxDmg} 증가`));
+        logs.push(
+            chalk.redBright(
+                `문제집을 점점 풀기 싫어집니다.. 피로도 ${mnDmg}~${mxDmg} 증가`
+            )
+        );
         // 플레이어 무기가 벼락치기(남은 일 수 비례 데미지 증가) 효과가 있을 시, 적용
-        (player.weapon.type === 1) ? player.weapon.damageUpdate(player, this, logs) : 0;
+        player.weapon.type === 1
+            ? player.weapon.damageUpdate(player, this, logs)
+            : 0;
     }
 }
 

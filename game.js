@@ -20,14 +20,14 @@ export default async function startGame() {
     while (!end) {
         let monster;
         //9스테이지 넘어갈 시, 몬스터가 보스몬스터들로 변경
-        monster = (stage > 9) ? new bossMonster() : new Monster(stage);
+        monster = stage > 9 ? new bossMonster() : new Monster(stage);
         //전투 결과 확인용
         status = await battle(stage, player, monster, maxscore);
         // 도주 시
         if (status === 'run') {
             //새롭게 전투 시작
             continue;
-        // 문제집을 풀었을 시
+            // 문제집을 풀었을 시
         } else if (status) {
             //보상 생성
             const reward = new Rewards(player, monster, stage);
@@ -37,12 +37,12 @@ export default async function startGame() {
             stage++;
             //점수가 정해진만큼을 넘었을 시, 엔딩
             end = player.score > maxscore;
-        // 죽음,그만두기
+            // 죽음,그만두기
         } else {
             //죽으면 엔딩
             end = true;
         }
     }
     //while문을 end를 통해 빠져나오면 엔딩으로 이동
-    return await ending(stage,player,maxscore);
+    return await ending(stage, player, maxscore);
 }

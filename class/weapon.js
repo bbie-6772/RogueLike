@@ -39,7 +39,10 @@ class Weapon {
     //강화된 무기 확인 및 적용 값
     plusWeapon(stage) {
         //강화 여부에 따라 강화이름 다르게 적용
-        const name = (this.plus === 0) ? `${this.name}+${this.plus + 1}` : `${this.name.slice(0, -1) + (this.plus + 1)}`;
+        const name =
+            this.plus === 0
+                ? `${this.name}+${this.plus + 1}`
+                : `${this.name.slice(0, -1) + (this.plus + 1)}`;
         // 강화된 수치 저장용 변수
         let dmg = 0;
         let heal = 0;
@@ -91,7 +94,7 @@ class Weapon {
             this.type,
             this.plus + 1,
             prob,
-            this.dayDmg,
+            this.dayDmg
         );
     }
     //스탯에 비례해 데미지 증가
@@ -110,13 +113,24 @@ class Weapon {
                 player.maxDmg += inc;
                 this.damage += inc;
                 // 증가량이 양수일 때 화면 출력
-                inc > 0 ? logs.push(chalk.yellowBright(`필기구의 몰입도가 이해력과 비례해 ${inc} Page 만큼 증가하였습니다! `)): 0;
+                inc > 0
+                    ? logs.push(
+                          chalk.yellowBright(
+                              `필기구의 몰입도가 이해력과 비례해 ${inc} Page 만큼 증가하였습니다! `
+                          )
+                      )
+                    : 0;
                 break;
             case 1:
                 // 남은 공부 기한과 강화 수치에 따라 증가폭 조정 (누적 값 삭제 후 증가량만 적용)
                 if (monster !== null) {
                     // 몬스터가 있을 때
-                    inc = (Math.round((monster.maxDay / monster.day) * 50) - Math.round((monster.maxDay / (monster.day + 1)) * 50)) * (this.plus + 1);
+                    inc =
+                        (Math.round((monster.maxDay / monster.day) * 50) -
+                            Math.round(
+                                (monster.maxDay / (monster.day + 1)) * 50
+                            )) *
+                        (this.plus + 1);
                     // 실시간 반영
                     player.minDmg += inc;
                     player.maxDmg += inc;
@@ -124,15 +138,25 @@ class Weapon {
                     // 추가값 추적
                     this.dayDmg += inc;
                     // 증가량이 양수일 때 화면 출력
-                    inc > 0 ? logs.push(chalk.yellowBright(`벼락치기 효과로 몰입도가 남은 공부기한과 비례해 ${inc} Page 만큼 증가하였습니다! `)): 0;
-                // 추가값이 양수일 때 
+                    inc > 0
+                        ? logs.push(
+                              chalk.yellowBright(
+                                  `벼락치기 효과로 몰입도가 남은 공부기한과 비례해 ${inc} Page 만큼 증가하였습니다! `
+                              )
+                          )
+                        : 0;
+                    // 추가값이 양수일 때
                 } else if (this.dayDmg > 0) {
                     // 몬스터가 없을 때(=전투가 끝난 후) 증가량 되돌리기
                     player.minDmg -= this.dayDmg;
                     player.maxDmg -= this.dayDmg;
                     this.damage -= this.dayDmg;
                     // 화면출력
-                    logs.push(chalk.yellowBright(`필기구의 몰입도가 이전 스테이지 때 벼락치기 효과로 증가했던 ${this.dayDmg} Page 만큼 감소하였습니다! `));
+                    logs.push(
+                        chalk.yellowBright(
+                            `필기구의 몰입도가 이전 스테이지 때 벼락치기 효과로 증가했던 ${this.dayDmg} Page 만큼 감소하였습니다! `
+                        )
+                    );
                     // 누적값 초기화
                     this.dayDmg = 0;
                 }
@@ -144,7 +168,13 @@ class Weapon {
                 player.minDmg += inc;
                 player.maxDmg += inc;
                 this.damage += inc;
-                inc > 0 ? logs.push(chalk.yellowBright(`필기구의 몰입도가 최대 정신력과 비례해 ${inc} Page 만큼 증가하였습니다! `)) : 0;
+                inc > 0
+                    ? logs.push(
+                          chalk.yellowBright(
+                              `필기구의 몰입도가 최대 정신력과 비례해 ${inc} Page 만큼 증가하였습니다! `
+                          )
+                      )
+                    : 0;
                 break;
             case 3:
                 // -이해도와 강화 수치에 따라 증가폭 조정
@@ -153,7 +183,13 @@ class Weapon {
                 player.minDmg += inc;
                 player.maxDmg += inc;
                 this.damage += inc;
-                inc > 0 ? logs.push(chalk.yellowBright(`필기구의 몰입도가 이해도와 반비례하며 ${inc} Page 만큼 증가하였습니다! `)) : 0;
+                inc > 0
+                    ? logs.push(
+                          chalk.yellowBright(
+                              `필기구의 몰입도가 이해도와 반비례하며 ${inc} Page 만큼 증가하였습니다! `
+                          )
+                      )
+                    : 0;
                 break;
             default:
                 logs.push('무기 타입 에러');

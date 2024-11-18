@@ -21,7 +21,7 @@ const ending = async (stage, player, maxscore) => {
             logs.push(chalk.cyanBright('|     Stage : Clear    |'));
             logs.push(chalk.cyanBright('|       Ending : 1     |'));
             logs.push(chalk.cyanBright('|      나는 신이다     |'));
-        //패배시 
+            //패배시
         } else {
             console.log(chalk.redBright(figlet.textSync('Lose! F-')));
             logs.push(chalk.magentaBright('========= 결과 ========='));
@@ -30,12 +30,36 @@ const ending = async (stage, player, maxscore) => {
             logs.push(chalk.cyanBright('|      나는 바보다     |'));
         }
 
-        logs.push(chalk.yellowBright(`|   최종 점수   : ${String(player.score).padStart(4, ' ')} |`));
-        logs.push(chalk.yellowBright(`|   최대 이해력 : ${String(player.maxLev).padStart(4, ' ')} |`));
-        logs.push(chalk.yellowBright(`|  푼 문제집 수 : ${String(player.kills).padStart(4, ' ')} |`));
-        logs.push(chalk.yellowBright(`| 풀었던 Page들 : ${String(player.totalDmg).padStart(4, ' ')} |`));
-        logs.push(chalk.redBright(`|  받은 피로도  : ${String(player.hurt).padStart(4, ' ')} |`));
-        logs.push(chalk.greenBright(`| 회복한 정신력 : ${String(player.totalHeal).padStart(4, ' ')} |`));
+        logs.push(
+            chalk.yellowBright(
+                `|   최종 점수   : ${String(player.score).padStart(4, ' ')} |`
+            )
+        );
+        logs.push(
+            chalk.yellowBright(
+                `|   최대 이해력 : ${String(player.maxLev).padStart(4, ' ')} |`
+            )
+        );
+        logs.push(
+            chalk.yellowBright(
+                `|  푼 문제집 수 : ${String(player.kills).padStart(4, ' ')} |`
+            )
+        );
+        logs.push(
+            chalk.yellowBright(
+                `| 풀었던 Page들 : ${String(player.totalDmg).padStart(4, ' ')} |`
+            )
+        );
+        logs.push(
+            chalk.redBright(
+                `|  받은 피로도  : ${String(player.hurt).padStart(4, ' ')} |`
+            )
+        );
+        logs.push(
+            chalk.greenBright(
+                `| 회복한 정신력 : ${String(player.totalHeal).padStart(4, ' ')} |`
+            )
+        );
         logs.push(chalk.magentaBright('========================'));
 
         for await (const log of logs) {
@@ -45,16 +69,31 @@ const ending = async (stage, player, maxscore) => {
         }
         //승리시
         if (player.score >= maxscore) {
-            console.log(chalk.yellowBright('\n1. 점수 기록 2.메인 화면 3. 현타와서 종료'));
+            console.log(
+                chalk.yellowBright(
+                    '\n1. 점수 기록 2.메인 화면 3. 현타와서 종료'
+                )
+            );
             const choice = readlineSync.question('당신의 행동은? ');
             switch (choice) {
                 case '1':
-                    console.log(chalk.yellowBright('점수를 기록하기 위해 이름을 입력해주세요!'));
+                    console.log(
+                        chalk.yellowBright(
+                            '점수를 기록하기 위해 이름을 입력해주세요!'
+                        )
+                    );
                     //이름 받아서 저장
                     const name = readlineSync.question('이름 : ');
-                    console.log(chalk.cyanBright(`저장될 값 / 이름 : ${name} 점수 : ${player.score}`));
+                    console.log(
+                        chalk.cyanBright(
+                            `저장될 값 / 이름 : ${name} 점수 : ${player.score}`
+                        )
+                    );
                     //저장할 값 생성
-                    const newScore = new ranking({name: name,score: player.score});
+                    const newScore = new ranking({
+                        name: name,
+                        score: player.score,
+                    });
                     //값 DB에 저장
                     await newScore
                         .save()
@@ -63,7 +102,9 @@ const ending = async (stage, player, maxscore) => {
                             // 올린 값 업데이트 해주기
                             await update();
                         })
-                        .catch((err) => console.log(chalk.redBright('저장실패!')));
+                        .catch((err) =>
+                            console.log(chalk.redBright('저장실패!'))
+                        );
                     readlineSync.question('메인화면으로>>');
                     return start();
                 case '2':

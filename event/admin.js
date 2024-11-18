@@ -10,7 +10,7 @@ const admin = async (pswd) => {
     let logs = [];
     let exit = false;
     //비밀번호데이터 가져오기
-    const passwordCk = await password.findOne({name : "admin"}).exec();
+    const passwordCk = await password.findOne({ name: 'admin' }).exec();
     //비밀 번호 확인
     if (passwordCk.password !== pswd) {
         console.log(chalk.redBright('오류! 비밀번호가 틀렸습니다!!'));
@@ -25,9 +25,15 @@ const admin = async (pswd) => {
         console.clear();
         // 타이틀
         console.log(chalk.cyanBright(figlet.textSync('    Admin')));
-        console.log(chalk.magentaBright('================ 관리자 모드 ================'));
+        console.log(
+            chalk.magentaBright('================ 관리자 모드 ================')
+        );
         // 선택지
-        logs.push(chalk.yellowBright('\n1. 무기 사전 2. 무기 검색 3. 무기 추가 4.돌아가기'));
+        logs.push(
+            chalk.yellowBright(
+                '\n1. 무기 사전 2. 무기 검색 3. 무기 추가 4.돌아가기'
+            )
+        );
 
         for await (const log of logs) {
             console.log(log);
@@ -44,7 +50,9 @@ const admin = async (pswd) => {
                 WeaponList(logs);
                 break;
             case '2':
-                console.log(chalk.cyanBright('검색할 무기의 이름를 입력해주세요!.'));
+                console.log(
+                    chalk.cyanBright('검색할 무기의 이름를 입력해주세요!.')
+                );
                 await SearchingWeapon(readlineSync.question('무기 이름:'));
                 break;
             case '3':
@@ -72,19 +80,27 @@ const WeaponList = (logs) => {
     }).forEach((val, idx) => {
         // 등급이 달라질 때마다 구분 경계선
         if (idx === 0) {
-            logs.push(chalk.magentaBright(`=========== ${val.rating}급 ===========`))
+            logs.push(
+                chalk.magentaBright(`=========== ${val.rating}급 ===========`)
+            );
         } else if (val.rating !== Weapons[idx - 1].rating) {
-            logs.push(chalk.magentaBright(`=========== ${val.rating}급 ===========`));
+            logs.push(
+                chalk.magentaBright(`=========== ${val.rating}급 ===========`)
+            );
         }
         // 무기 정보
-        logs.push(chalk.yellowBright(`| 등급 : ${val.rating} | 몰입도 : ${String(val.damage).padStart(3, ' ')} Page | 수면효과 : ${String(val.heal).padStart(3, ' ')} | 이름 : ${val.name}`));
+        logs.push(
+            chalk.yellowBright(
+                `| 등급 : ${val.rating} | 몰입도 : ${String(val.damage).padStart(3, ' ')} Page | 수면효과 : ${String(val.heal).padStart(3, ' ')} | 이름 : ${val.name}`
+            )
+        );
     });
 };
 
 //무기 하나 조회 + 수정/삭제
 const SearchingWeapon = async (name) => {
     //무기이름으로 조회
-    const val = await WeaponSch.findOne({ name }).exec()
+    const val = await WeaponSch.findOne({ name }).exec();
     let logs = [];
     let exit = false;
     let typename;
@@ -108,10 +124,26 @@ const SearchingWeapon = async (name) => {
                 break;
         }
         // 화면 출력
-        logs.push(chalk.magentaBright('================================= 선택된 필기구 ================================='));
-        logs.push(chalk.yellowBright(`| 등급 : ${val.rating} | 몰입도 : ${String(val.damage).padStart(3, ' ')} Page | 수면효과 : ${String(val.heal).padStart(3, ' ')} | 유형 : ${typename} | 이름 : ${val.name}`));
-        logs.push(chalk.magentaBright('================================================================================'));
-        logs.push(chalk.cyanBright(`| 수정 가능 정보 | 이름(name) / 몰입도(damage) / 수면효과(heal) / 등급(rating) / 유형(type) |`));
+        logs.push(
+            chalk.magentaBright(
+                '================================= 선택된 필기구 ================================='
+            )
+        );
+        logs.push(
+            chalk.yellowBright(
+                `| 등급 : ${val.rating} | 몰입도 : ${String(val.damage).padStart(3, ' ')} Page | 수면효과 : ${String(val.heal).padStart(3, ' ')} | 유형 : ${typename} | 이름 : ${val.name}`
+            )
+        );
+        logs.push(
+            chalk.magentaBright(
+                '================================================================================'
+            )
+        );
+        logs.push(
+            chalk.cyanBright(
+                `| 수정 가능 정보 | 이름(name) / 몰입도(damage) / 수면효과(heal) / 등급(rating) / 유형(type) |`
+            )
+        );
 
         // 수정, 삭제 기능 구현
         while (!exit) {
@@ -127,20 +159,31 @@ const SearchingWeapon = async (name) => {
                 const back = readlineSync.question('돌아가기<<');
                 return;
             }
-            console.log(chalk.yellowBright('\n1. 무기 조정 2. 무기 삭제 3. 돌아가기'));
+            console.log(
+                chalk.yellowBright('\n1. 무기 조정 2. 무기 삭제 3. 돌아가기')
+            );
             // 플레이어의 선택에 따라 다음 행동 처리
             choice = readlineSync.question('어떻게 하시겠습니까?');
             // 선택값 출력
             logs.push(chalk.yellowBright(`${choice}를 선택하셨습니다.`));
             switch (choice) {
                 case '1':
-                    //수정 값 입력 및 확인 
-                    const valueName = readlineSync.question('바꿀 정보를 영어로 입력해주세요!');
-                    console.log(chalk.yellowBright(`${valueName}을 선택하셨습니다.`));
+                    //수정 값 입력 및 확인
+                    const valueName =
+                        readlineSync.question(
+                            '바꿀 정보를 영어로 입력해주세요!'
+                        );
+                    console.log(
+                        chalk.yellowBright(`${valueName}을 선택하셨습니다.`)
+                    );
                     const value = readlineSync.question('값을 입력해주세요!');
-                    console.log(chalk.yellowBright(`${value}를 입력 하셨습니다.`));
+                    console.log(
+                        chalk.yellowBright(`${value}를 입력 하셨습니다.`)
+                    );
 
-                    const weaponFound = await WeaponSch.findOne({name: name}).exec();
+                    const weaponFound = await WeaponSch.findOne({
+                        name: name,
+                    }).exec();
                     //수정할 값에 따라 다르게 변경
                     switch (valueName) {
                         case 'name':
@@ -169,24 +212,33 @@ const SearchingWeapon = async (name) => {
                     break;
                 case '2':
                     //서버에서 삭제
-                    await WeaponSch.deleteOne({ name })
-                    .then(async () => {
+                    await WeaponSch.deleteOne({ name }).then(async () => {
                         logs.push(chalk.redBright(`무기를 삭제했습니다!`));
                         //서버에서 무기정보 업데이트
                         await update();
                     });
                     break;
                 case '3':
-                    logs.push(chalk.yellowBright('선택을 취소했습니다! 선택지로 다시 이동합니다..'));
+                    logs.push(
+                        chalk.yellowBright(
+                            '선택을 취소했습니다! 선택지로 다시 이동합니다..'
+                        )
+                    );
                     break;
                 default:
-                    logs.push(chalk.yellowBright('입력이 이상합니다! 다시 입력해주세요'));
+                    logs.push(
+                        chalk.yellowBright(
+                            '입력이 이상합니다! 다시 입력해주세요'
+                        )
+                    );
                     continue;
             }
         }
     } else {
         //찾기 실패 시
-        logs.push(chalk.redBright('입력하신 이름을 가진 무기를 찾을 수 없습니다!'));
+        logs.push(
+            chalk.redBright('입력하신 이름을 가진 무기를 찾을 수 없습니다!')
+        );
     }
 };
 
@@ -197,12 +249,32 @@ const NewWeapon = async () => {
     console.clear();
 
     // 타이틀
-    console.log(chalk.red(figlet.textSync('Forge'.padStart(40, ' '), {font: 'Standard'})));
-    logs.push(chalk.magentaBright('============================================ 무기 정보 ============================================'));
-    logs.push(chalk.yellowBright('| 기입 필요 | 이름(String) | 공격력(Number) | 회복력(Number) | Type(Number) | 등급(Stirng) |'));
-    logs.push(chalk.greenBright('| Type: 공격력 증가 유형 | 0 : 이해도 비례 | 1 : 남은 공부 기한 비례 | 2 : 정신력 비례 | 3 : 이해도 반비례 |'));
+    console.log(
+        chalk.red(
+            figlet.textSync('Forge'.padStart(40, ' '), { font: 'Standard' })
+        )
+    );
+    logs.push(
+        chalk.magentaBright(
+            '============================================ 무기 정보 ============================================'
+        )
+    );
+    logs.push(
+        chalk.yellowBright(
+            '| 기입 필요 | 이름(String) | 공격력(Number) | 회복력(Number) | Type(Number) | 등급(Stirng) |'
+        )
+    );
+    logs.push(
+        chalk.greenBright(
+            '| Type: 공격력 증가 유형 | 0 : 이해도 비례 | 1 : 남은 공부 기한 비례 | 2 : 정신력 비례 | 3 : 이해도 반비례 |'
+        )
+    );
     logs.push(chalk.greenBright('| 등급 유형 | H > S > A > B > C > D > E |'));
-    logs.push(chalk.magentaBright('==================================================================================================='));
+    logs.push(
+        chalk.magentaBright(
+            '==================================================================================================='
+        )
+    );
 
     console.log(chalk.yellowBright(`\n1. 수락 2. 돌아가기`));
     // 플레이어의 선택에 따라 다음 행동 처리
@@ -211,7 +283,11 @@ const NewWeapon = async () => {
 
     switch (choice) {
         case '1':
-            console.log(chalk.whiteBright('기입 사항들을 (,) 기준으로 차례대로 입력해주세요!'));
+            console.log(
+                chalk.whiteBright(
+                    '기입 사항들을 (,) 기준으로 차례대로 입력해주세요!'
+                )
+            );
             //입력값 변환
             newWp = readlineSync.question('무기 정보 기입::').split(',');
             //값 확인
@@ -235,14 +311,19 @@ const NewWeapon = async () => {
                 .catch((err) => console.log(chalk.redBright('저장실패!')));
             break;
         case '2':
-            logs.push(chalk.yellowBright('선택을 취소했습니다! 선택지로 다시 이동합니다..'));
+            logs.push(
+                chalk.yellowBright(
+                    '선택을 취소했습니다! 선택지로 다시 이동합니다..'
+                )
+            );
             // 값 확인용 정지
             const back = readlineSync.question('돌아가기<<');
             return;
         default:
-            logs.push(chalk.yellowBright(`입력이 이상합니다! 선택지로 돌아갑니다`));
+            logs.push(
+                chalk.yellowBright(`입력이 이상합니다! 선택지로 돌아갑니다`)
+            );
     }
-    
 };
 
 // 정렬용 비교 함수

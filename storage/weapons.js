@@ -13,7 +13,7 @@ const update = async () => {
     //업데이트
     temp.forEach((val) => {
         Weapons.push(
-            new Weapon(val.name, val.damage, val.heal, val.rating, val.type),
+            new Weapon(val.name, val.damage, val.heal, val.rating, val.type)
         );
     });
 };

@@ -14,12 +14,16 @@ import rankList from './event/ranking.js';
 const displayLobby = function () {
     console.clear();
     // 타이틀 텍스트
-    console.log(chalk.cyan(figlet.textSync('Lets Take A Test', {font: 'Standard'})));
+    console.log(
+        chalk.cyan(figlet.textSync('Lets Take A Test', { font: 'Standard' }))
+    );
     // 상단 경계선
     const line = chalk.magentaBright('='.repeat(69));
     console.log(line);
     // 게임 이름
-    console.log(chalk.yellowBright.bold('시험을 보자! 게임에 오신것을 환영합니다!'));
+    console.log(
+        chalk.yellowBright.bold('시험을 보자! 게임에 오신것을 환영합니다!')
+    );
     // 설명 텍스트
     console.log(chalk.green('메뉴를 선택해주세요.'));
     // 옵션들
@@ -31,7 +35,7 @@ const displayLobby = function () {
     console.log(line);
     // 하단 설명
     console.log(chalk.gray('1-4 사이의 수를 입력한 뒤 엔터를 누르세요.'));
-}
+};
 
 // 유저 입력을 받아 처리하는 함수
 const handleUserInput = async function () {
@@ -49,20 +53,26 @@ const handleUserInput = async function () {
             break;
         case '3':
             // 관리자 모드
-            console.log(chalk.redBright('관리자 모드 진입을 위해 비밀번호를 입력해주세요'));
+            console.log(
+                chalk.redBright(
+                    '관리자 모드 진입을 위해 비밀번호를 입력해주세요'
+                )
+            );
             admin(readlineSync.question('비밀번호:'));
             break;
         case '4':
             // 게임 종료
             process.exit(0);
         default:
-            console.log(chalk.yellowBright('예상치 못한 입력입니다! 다시 입력해주세요'));
+            console.log(
+                chalk.yellowBright('예상치 못한 입력입니다! 다시 입력해주세요')
+            );
             handleUserInput();
     }
-}
+};
 // 게임 시작 함수
 const start = async function () {
-    // 한글 인식 인코딩 적용 
+    // 한글 인식 인코딩 적용
     execSync('chcp 65001');
     // 로비 화면 출력
     displayLobby();
@@ -70,7 +80,7 @@ const start = async function () {
     await update();
     // 플레이어 입력 받기
     handleUserInput();
-}
+};
 // 게임 실행
 start();
 

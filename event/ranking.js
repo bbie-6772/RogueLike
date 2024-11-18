@@ -18,11 +18,15 @@ const rankList = async () => {
     logs.push(chalk.magentaBright('============== TOP 10 =============='));
     // 랭킹
     list.forEach((val, idx) => {
-        logs.push(chalk.cyanBright(`| ${String(idx + 1).padStart(2, ' ')} | 점수 : ${String(val.score).padStart(4, ' ')} | 이름 : ${val.name}`));
+        logs.push(
+            chalk.cyanBright(
+                `| ${String(idx + 1).padStart(2, ' ')} | 점수 : ${String(val.score).padStart(4, ' ')} | 이름 : ${val.name}`
+            )
+        );
     });
     logs.push(chalk.magentaBright('===================================='));
     console.clear();
-    console.log(chalk.yellowBright(figlet.textSync('Ranking',)));
+    console.log(chalk.yellowBright(figlet.textSync('Ranking')));
 
     for await (const log of logs) {
         console.log(log);
