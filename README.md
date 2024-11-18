@@ -1,6 +1,6 @@
 # \[시험을 풀자!\]로그라이크 텍스트 게임!!
 
-![게임화면][https://github.com/user-attachments/assets/b2033986-936d-4e79-9e81-ff78450fe55b]
+![게임화면](https://github.com/user-attachments/assets/b2033986-936d-4e79-9e81-ff78450fe55b)
 
 이 게임은 로그라이크 장르의 텍스트 게임으로, 
 학생이되어 시험을 준비하는 게임입니다!
