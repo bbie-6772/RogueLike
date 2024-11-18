@@ -23,6 +23,7 @@ const ending = async (stage, player, maxscore) => {
             logs.push(chalk.cyanBright('|      나는 신이다     |'));
         //패배시 
         } else {
+            console.log(chalk.redBright(figlet.textSync('Lose! F-')));
             logs.push(chalk.magentaBright('========= 결과 ========='));
             logs.push(chalk.cyanBright(`|     Last Stage: ${stage}    |`));
             logs.push(chalk.cyanBright('|       Ending : 0     |'));

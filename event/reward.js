@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 import readlineSync from 'readline-sync';
 import figlet from 'figlet';
-import endgame from './gameover.js';
+import ending from '../event/ending.js';
 import { Weapons } from '../storage/weapons.js';
 
 const rewardEvent = async (stage, player, reward, maxscore) => {
@@ -47,7 +47,7 @@ const rewardEvent = async (stage, player, reward, maxscore) => {
                 break;
             case '4':
                 console.log(chalk.redBright('게임을 마무리 합니다.'));
-                return await endgame(stage, player);
+                return await ending(stage, player);
             default:
                 logs.push(chalk.yellowBright('예상치 못한 입력입니다! 다시 입력해주세요'));
                 console.clear();
