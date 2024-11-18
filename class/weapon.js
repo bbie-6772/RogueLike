@@ -130,7 +130,7 @@ class Weapon {
                             Math.round(
                                 (monster.maxDay / (monster.day + 1)) * 50
                             )) *
-                        (this.plus + 1);
+                        this.plus * 1.5;
                     // 실시간 반영
                     player.minDmg += inc;
                     player.maxDmg += inc;
