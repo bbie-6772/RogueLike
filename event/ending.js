@@ -102,9 +102,6 @@ const ending = async (stage, player, maxscore) => {
                             // 올린 값 업데이트 해주기
                             await update();
                         })
-                        .catch((err) =>
-                            console.log(chalk.redBright('저장실패!'))
-                        );
                     readlineSync.question('메인화면으로>>');
                     return start();
                 case '2':

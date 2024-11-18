@@ -308,7 +308,6 @@ const NewWeapon = async () => {
                     // 올린 값 업데이트 해주기
                     await update();
                 })
-                .catch((err) => console.log(chalk.redBright('저장실패!')));
             break;
         case '2':
             logs.push(
