@@ -13,7 +13,7 @@
 
 ## 문제집을 풀어 이해도를 높여라! 
 
-![문제집](https://github.com/user-attachments/assets/4eff4b88-7241-470a-bf6a-24de428bc579)
+![전투화면(완)](https://github.com/user-attachments/assets/03c44905-e20c-4eca-b987-f5f363c10a1e)
 
 - 스테이지마다 랜덤으로 문제집이 생성되며, 전부 풀게되면 기본보상과 선택보상이 주워집니다!
 
