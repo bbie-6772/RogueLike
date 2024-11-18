@@ -18,7 +18,7 @@ const admin = async (pswd) => {
         readlineSync.question('돌아가기<<');
         return start();
     }
-
+    // 환영 인사
     logs.push(chalk.greenBright('어서오세요! 관리자님!!'));
 
     while (!exit) {
