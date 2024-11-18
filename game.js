@@ -3,9 +3,8 @@ import Monster from './class/monster.js';
 import bossMonster from './class/boss-monster.js';
 import Rewards from './class/reward.js';
 import rewardEvent from './event/reward.js';
-import endgame from './event/gameover.js';
 import battle from './event/battle.js';
-import win from './event/ending.js';
+import ending from './event/ending.js';
 
 export default async function startGame() {
     console.clear();
@@ -40,10 +39,10 @@ export default async function startGame() {
             end = player.score > maxscore;
         // 죽음,그만두기
         } else {
-            //죽으면 게임오버 이벤트 이동
-            return await endgame(stage, player);
+            //죽으면 엔딩
+            end = true;
         }
     }
     //while문을 end를 통해 빠져나오면 엔딩으로 이동
-    return await win(player);
+    return await ending(stage,player,maxscore);
 }

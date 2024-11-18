@@ -15,38 +15,22 @@ const rankList = async () => {
         })
         .splice(0, 10);
 
-    logs.push(chalk.magentaBright(`============== TOP 10 ==============`));
-
+    logs.push(chalk.magentaBright('============== TOP 10 =============='));
     // 랭킹
     list.forEach((val, idx) => {
-        logs.push(
-            chalk.cyanBright(
-                `| ${String(idx + 1).padStart(2, ' ')} | 점수 : ${String(val.score).padStart(4, ' ')} | 이름 : ${val.name}`,
-            ),
-        );
+        logs.push(chalk.cyanBright(`| ${String(idx + 1).padStart(2, ' ')} | 점수 : ${String(val.score).padStart(4, ' ')} | 이름 : ${val.name}`));
     });
-    logs.push(chalk.magentaBright(`====================================`));
-
+    logs.push(chalk.magentaBright('===================================='));
     console.clear();
-
-    console.log(
-        chalk.yellowBright(
-            figlet.textSync('Ranking', {
-                font: 'Standard',
-                horizontalLayout: 'default',
-                verticalLayout: 'default',
-            }),
-        ),
-    );
+    console.log(chalk.yellowBright(figlet.textSync('Ranking',)));
 
     for await (const log of logs) {
         console.log(log);
         // 애니메이션 효과 딜레이
         await new Promise((resolve) => setTimeout(resolve, 200));
     }
-
     readlineSync.question('메인화면<<');
-
+    //메인으로 이동
     return start();
 };
 

@@ -24,7 +24,7 @@ const admin = async (pswd) => {
     while (!exit) {
         console.clear();
         // 타이틀
-        console.log(chalk.cyanBright(figlet.textSync('    Admin', {font: 'Standard'})));
+        console.log(chalk.cyanBright(figlet.textSync('    Admin')));
         console.log(chalk.magentaBright('================ 관리자 모드 ================'));
         // 선택지
         logs.push(chalk.yellowBright('\n1. 무기 사전 2. 무기 검색 3. 무기 추가 4.돌아가기'));
